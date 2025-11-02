@@ -1,21 +1,23 @@
 package ar.edu.unq.po2.integrador;
 
+import java.time.Duration;
+
 public class Tramo {
 	
-	private double duracionEnHoras; // Esto creo que seria mejor tiparlo de otra manera...
+	private Duration duracion;
 	private double costo;
 	private Terminal origen;
 	private Terminal destino;
 
-	public Tramo(Terminal origen, Terminal destino, double duracion, double costo) {
-		this.duracionEnHoras = duracion;
+	public Tramo(Terminal origen, Terminal destino, long duracion, double costo) {
+		this.duracion = Duration.ofHours(duracion);
 		this.origen = origen;
 		this.destino = destino;
 		this.costo = costo;
 	}
 
 	public double getDuracion() {
-		return this.duracionEnHoras;
+		return this.duracion.toHours();
 	}
 
 	public double getCosto() {
