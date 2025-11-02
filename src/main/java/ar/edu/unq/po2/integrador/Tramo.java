@@ -7,6 +7,13 @@ public class Tramo {
 	private Terminal origen;
 	private Terminal destino;
 
+	public Tramo(Terminal origen, Terminal destino, double duracion, double costo) {
+		this.duracionEnHoras = duracion;
+		this.origen = origen;
+		this.destino = destino;
+		this.costo = costo;
+	}
+
 	public double getDuracion() {
 		return this.duracionEnHoras;
 	}
