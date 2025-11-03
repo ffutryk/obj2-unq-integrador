@@ -75,6 +75,13 @@ public class Circuito {
 	private List<Tramo> getTramos() {
 		return this.tramos;
 	}
+	
+	public boolean incluyeLaTerminal(Terminal terminal) {
+	    return this.getTramos()
+	    		   .stream()
+	               .anyMatch(t -> t.getDestino().equals(terminal) || t.getOrigen().equals(terminal)); 
+	}
+
 
 	public Duration duracionHasta(Terminal destino) {
 		// Precondición: La terminal dada está en el circuito.

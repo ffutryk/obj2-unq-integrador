@@ -130,4 +130,45 @@ class CircuitoTest {
 		assertTrue(unCircuito.equals(otroCircuito));
 	}
 
+	@Test
+	void testIncluyeLaTerminalDevuelveTrueSiLaTerminalEsOrigenDeAlgunoDeLosTramos() {
+	    Terminal origen = mock(Terminal.class);
+	    Terminal destino = mock(Terminal.class);
+	    Tramo tramo = mock(Tramo.class);
+	    when(tramo.getOrigen()).thenReturn(origen);
+	    when(tramo.getDestino()).thenReturn(destino);
+	    ArrayList<Tramo> tramos = new ArrayList<>();
+	    tramos.add(tramo);
+	    unCircuito = new Circuito(mock(Terminal.class), tramos);
+
+	    assertTrue(unCircuito.incluyeLaTerminal(origen));
+	}
+
+	@Test
+	void testIncluyeLaTerminalDevuelveTrueSiLaTerminalEsDestinoDeAlgunoDeLosTramos() {
+	    Terminal origen = mock(Terminal.class);
+	    Terminal destino = mock(Terminal.class);
+	    Tramo tramo = mock(Tramo.class);
+	    when(tramo.getOrigen()).thenReturn(mock(Terminal.class));
+	    when(tramo.getDestino()).thenReturn(destino);
+	    ArrayList<Tramo> tramos = new ArrayList<>();
+	    tramos.add(tramo);
+	    unCircuito = new Circuito(mock(Terminal.class), tramos);
+
+	    assertTrue(unCircuito.incluyeLaTerminal(destino));
+	}
+
+	@Test
+	void testIncluyeLaTerminalDevuelveFalseSiLaTerminalNoPerteneceANingunTramo() {
+	    Terminal terminalNoIncluida = mock(Terminal.class);
+	    Tramo tramo = mock(Tramo.class);
+	    when(tramo.getOrigen()).thenReturn(mock(Terminal.class));
+	    when(tramo.getDestino()).thenReturn(mock(Terminal.class));
+	    ArrayList<Tramo> tramos = new ArrayList<>();
+	    tramos.add(tramo);
+	    unCircuito = new Circuito(mock(Terminal.class), tramos);
+
+	    assertFalse(unCircuito.incluyeLaTerminal(terminalNoIncluida));
+	}
+
 }
