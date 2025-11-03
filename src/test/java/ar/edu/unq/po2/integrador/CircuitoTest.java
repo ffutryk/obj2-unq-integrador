@@ -3,7 +3,10 @@ package ar.edu.unq.po2.integrador;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,10 +45,10 @@ class CircuitoTest {
 		ArrayList<Tramo> tramos = new ArrayList<Tramo>();
 		tramos.add(t1);
 		tramos.add(t2);
-		when(t1.getDuracion()).thenReturn(5.0d);
-		when(t2.getDuracion()).thenReturn(10.2d);
+		when(t1.getDuracion()).thenReturn(Duration.of(30, ChronoUnit.HOURS));
+		when(t2.getDuracion()).thenReturn(Duration.of(30, ChronoUnit.HOURS));
 		unCircuito = new Circuito(origen, tramos);
-		assertEquals(15.2, unCircuito.duracionTotal());
+		assertEquals(Duration.of(60, ChronoUnit.HOURS), unCircuito.duracionTotal());
 	}
 	
 	@Test
@@ -84,25 +87,44 @@ class CircuitoTest {
 	
 	@Test
 	void testUnCircuitoSabeResponderLaDuracionDelRecorridoEntreDosTerminalesQueLoComponen() {
-		Terminal origen = mock(Terminal.class);
-		Tramo t1 = mock(Tramo.class);
-		Tramo t2 = mock(Tramo.class);
-		Tramo t3 = mock(Tramo.class);
-		Tramo t4 = mock(Tramo.class);
-		Tramo t5 = mock(Tramo.class);
-		ArrayList<Tramo> tramos = new ArrayList<Tramo>();
-		tramos.add(t1);
-		tramos.add(t2);
-		tramos.add(t3);
-		tramos.add(t4);
-		tramos.add(t5);
-		when(t1.getDuracion()).thenReturn(23.5d);
-		when(t2.getDuracion()).thenReturn(10d);
-		when(t3.getDuracion()).thenReturn(20.5d);
-		when(t4.getDuracion()).thenReturn(13.5d);
-		when(t5.getDuracion()).thenReturn(7.5d);		
-		unCircuito = new Circuito(origen, tramos);
-		assertEquals(44d, unCircuito.duracionEntre(t2, t4), 0.0001d);
+        Terminal origen = mock(Terminal.class);
+        Terminal destino = mock(Terminal.class);
+
+        Tramo t1 = mock(Tramo.class);
+        Tramo t2 = mock(Tramo.class);
+        Tramo t3 = mock(Tramo.class);
+        Tramo t4 = mock(Tramo.class);
+        Tramo t5 = mock(Tramo.class);
+
+        ArrayList<Tramo> tramos = new ArrayList<>();
+        tramos.add(t1);
+        tramos.add(t2);
+        tramos.add(t3);
+        tramos.add(t4);
+        tramos.add(t5);
+
+        when(t1.getDuracion()).thenReturn(Duration.ofHours(2));
+        when(t2.getDuracion()).thenReturn(Duration.ofHours(4));
+        when(t3.getDuracion()).thenReturn(Duration.ofHours(6));
+        when(t4.getDuracion()).thenReturn(Duration.ofHours(8));
+        when(t5.getDuracion()).thenReturn(Duration.ofHours(10));
+
+        when(t1.contieneA(origen)).thenReturn(false);
+        when(t2.contieneA(origen)).thenReturn(true); 
+        when(t3.contieneA(origen)).thenReturn(false);
+        when(t4.contieneA(origen)).thenReturn(false);
+        when(t5.contieneA(origen)).thenReturn(false);
+
+        when(t1.contieneA(destino)).thenReturn(false);
+        when(t2.contieneA(destino)).thenReturn(false);
+        when(t3.contieneA(destino)).thenReturn(false);
+        when(t4.contieneA(destino)).thenReturn(true); 
+        when(t5.contieneA(destino)).thenReturn(false);
+
+        Circuito unCircuito = new Circuito(origen, tramos);
+        Duration duracionEsperada = Duration.ofHours(18);
+
+        assertEquals(duracionEsperada, unCircuito.duracionEntre(origen, destino));
 	}
 	
 	@Test
@@ -120,11 +142,11 @@ class CircuitoTest {
 		tramos.add(t3);
 		tramos.add(t4);
 		tramos.add(t5);
-		when(t1.getDuracion()).thenReturn(23.5d);
-		when(t2.getDuracion()).thenReturn(10d);
-		when(t3.getDuracion()).thenReturn(20.5d);
-		when(t4.getDuracion()).thenReturn(13.5d);
-		when(t5.getDuracion()).thenReturn(7.5d);
+		when(t1.getDuracion()).thenReturn(Duration.of(2, ChronoUnit.HOURS));
+		when(t2.getDuracion()).thenReturn(Duration.of(4, ChronoUnit.HOURS));
+		when(t3.getDuracion()).thenReturn(Duration.of(6, ChronoUnit.HOURS));
+		when(t4.getDuracion()).thenReturn(Duration.of(8, ChronoUnit.HOURS));
+		when(t5.getDuracion()).thenReturn(Duration.of(10, ChronoUnit.HOURS));
 		unCircuito = new Circuito(origen, tramos);
 		Circuito otroCircuito = new Circuito(origen, tramos);
 		assertTrue(unCircuito.equals(otroCircuito));

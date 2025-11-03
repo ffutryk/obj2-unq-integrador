@@ -3,6 +3,10 @@ package ar.edu.unq.po2.integrador;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
+
 import org.junit.jupiter.api.Test;
 
 class TramoTest {
@@ -11,15 +15,15 @@ class TramoTest {
 	void testUnTramoPuedeResponderCuantoTiempoTardaEnSerRecorrido() {
 		Terminal origen = mock(Terminal.class);
 		Terminal destino = mock(Terminal.class);
-		Tramo unTramo = new Tramo(origen, destino, 30, 10.7d);
-		assertEquals(30, unTramo.getDuracion());
+		Tramo unTramo = new Tramo(origen, destino, Duration.of(30, ChronoUnit.HOURS), 10.7d);
+		assertEquals(Duration.of(30, ChronoUnit.HOURS), unTramo.getDuracion());
 	}
 	
 	@Test
 	void testUnTramoPuedeResponderCualEsSuTerminalOrigen() {
 		Terminal origen = mock(Terminal.class);
 		Terminal destino = mock(Terminal.class);
-		Tramo unTramo = new Tramo(origen, destino, 30, 10.7d);
+		Tramo unTramo = new Tramo(origen, destino, Duration.of(30, ChronoUnit.HOURS), 10.7d);
 		assertEquals(origen, unTramo.getOrigen());
 	}
 	
@@ -27,7 +31,7 @@ class TramoTest {
 	void testUnTramoPuedeResponderCualEsSuTerminalDestino() {
 		Terminal origen = mock(Terminal.class);
 		Terminal destino = mock(Terminal.class);
-		Tramo unTramo = new Tramo(origen, destino, 30, 10.7d);
+		Tramo unTramo = new Tramo(origen, destino, Duration.of(30, ChronoUnit.HOURS), 10.7d);
 		assertEquals(destino, unTramo.getDestino());
 	}
 	
@@ -35,7 +39,7 @@ class TramoTest {
 	void testUnTramoPuedeResponderCualEsSuCosto() {
 		Terminal origen = mock(Terminal.class);
 		Terminal destino = mock(Terminal.class);
-		Tramo unTramo = new Tramo(origen, destino, 30, 10.7d);
+		Tramo unTramo = new Tramo(origen, destino, Duration.of(30, ChronoUnit.HOURS), 10.7d);
 		assertEquals(10.7, unTramo.getCosto());
 	}
 }

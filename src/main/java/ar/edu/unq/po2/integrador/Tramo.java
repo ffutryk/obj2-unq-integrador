@@ -9,15 +9,15 @@ public class Tramo {
 	private Terminal origen;
 	private Terminal destino;
 
-	public Tramo(Terminal origen, Terminal destino, long duracion, double costo) {
-		this.duracion = Duration.ofHours(duracion);
+	public Tramo(Terminal origen, Terminal destino, Duration duracion, double costo) {
+		this.duracion = duracion;
 		this.origen = origen;
 		this.destino = destino;
 		this.costo = costo;
 	}
 
-	public double getDuracion() {
-		return this.duracion.toHours();
+	public Duration getDuracion() {
+		return this.duracion;
 	}
 
 	public double getCosto() {

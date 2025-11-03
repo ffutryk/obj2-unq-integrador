@@ -21,8 +21,10 @@ public class Circuito {
 		return this.origen;
 	}
 
-	public Double duracionTotal() {
-		return tramos.stream().mapToDouble(tramo -> tramo.getDuracion()).sum();
+	public Duration duracionTotal() {
+		return tramos.stream()
+                .map(Tramo::getDuracion)
+                .reduce(Duration.ZERO, Duration::plus);
 	}
 
 	public Double costoTotal() {
@@ -47,16 +49,25 @@ public class Circuito {
 		}
 	}
 
-	public double duracionEntre(Tramo unTramo, Tramo otroTramo) {
-		asertarTramosIncluidos(unTramo, otroTramo);
-		int indiceMenor = Math.min(tramos.indexOf(unTramo), tramos.indexOf(otroTramo));
-		Tramo inicio = tramos.get(indiceMenor);
-		Tramo fin = (inicio == unTramo) ? otroTramo : unTramo; // Me quedo con el tramo restante por descarte...
-		double duracion = 0;
-		for(int index = tramos.indexOf(inicio); index <= tramos.indexOf(fin); index++) {
-			duracion += tramos.get(index).getDuracion(); // Sumo el costo del tramo actual...
-		}
-		return duracion;
+	public Duration duracionEntre(Terminal unaTerminal, Terminal otraTerminal) {
+	    Duration duracion = Duration.ZERO;
+	    boolean contando = false;
+
+	    for (Tramo tramo : tramos) {
+	        if (tramo.contieneA(unaTerminal) || contando) {
+	            contando = true;
+	            duracion = duracion.plus(tramo.getDuracion());
+	        }
+	        if (tramo.contieneA(otraTerminal) && contando) {
+	            break;
+	        }
+	    }
+
+	    if (!contando) {
+	        throw new RuntimeException("Alguno de los terminales no pertenece al circuito");
+	    }
+
+	    return duracion;
 	}
 	
 	@Override
@@ -85,15 +96,7 @@ public class Circuito {
 
 	public Duration duracionHasta(Terminal destino) {
 		// Precondición: La terminal dada está en el circuito.
-		double horas = 0;
-		int index = 0;
-		Tramo tramoActual = tramos.get(index);
-		while(!tramoActual.contieneA(destino)) {
-			horas += tramoActual.getDuracion();
-			index++;
-			tramoActual = tramos.get(index);
-		}
-		return Duration.ofHours((long) horas);		
+		return duracionEntre(origen, destino);
 	}
 
 }
