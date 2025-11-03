@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.integrador.Viaje;
 import ar.edu.unq.po2.integrador.filtros.IFiltroViaje;
-import ar.edu.unq.po2.integrador.filtros.compuestos.FiltroOr;
 
 class FiltroOrTest {
 

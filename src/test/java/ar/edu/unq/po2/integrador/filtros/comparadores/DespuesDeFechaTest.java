@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import ar.edu.unq.po2.integrador.filtros.comparadores.DespuesDeFecha;
-
 class DespuesDeFechaTest {
 
 	DespuesDeFecha estrategia;
