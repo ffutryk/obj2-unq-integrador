@@ -93,6 +93,22 @@ public class Circuito {
 	               .anyMatch(t -> t.getDestino().equals(terminal) || t.getOrigen().equals(terminal)); 
 	}
 
+	public int cantidadDeParadasHasta(Terminal terminal) {
+	    int paradas = 0;
+
+	    for (Tramo tramo : tramos) {
+	        paradas++;
+	        if (tramo.contieneA(terminal)) {
+	            break;
+	        }
+	    }
+
+	    if (paradas == 0 || !tramos.stream().anyMatch(t -> t.contieneA(terminal))) {
+	        throw new RuntimeException("La terminal no pertenece al circuito");
+	    }
+
+	    return paradas;
+	}
 
 	public Duration duracionHasta(Terminal destino) {
 		// Precondición: La terminal dada está en el circuito.
