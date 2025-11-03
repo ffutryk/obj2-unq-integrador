@@ -10,7 +10,7 @@ class TerminalTest {
 	@Test
 	void testUnaTerminalSabeResponderSuUbicacionGeografica() {
 		PosicionGeografica pos = mock(PosicionGeografica.class);
-		Terminal unaTerminal = new Terminal(pos);
+		Terminal unaTerminal = new Terminal("Terminal BsAs", pos);
 		assertEquals(pos, unaTerminal.getUbicacion());
 	}
 

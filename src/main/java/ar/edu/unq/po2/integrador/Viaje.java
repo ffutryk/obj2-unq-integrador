@@ -15,10 +15,10 @@ public class Viaje {
         return this.buque.equals(viaje.getBuque()) && this.circuito.equals(viaje.getCircuito()); // criterio de igualdad
     }
 	
-	 @Override
-	    public int hashCode() {
-	        return Objects.hash(circuito, buque);
-	    }
+	@Override
+	public int hashCode() {
+	    return Objects.hash(circuito, buque);
+	}
 
 	public Object getBuque() {
 		return this.buque;

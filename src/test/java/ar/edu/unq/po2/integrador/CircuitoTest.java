@@ -104,5 +104,30 @@ class CircuitoTest {
 		unCircuito = new Circuito(origen, tramos);
 		assertEquals(44d, unCircuito.duracionEntre(t2, t4), 0.0001d);
 	}
+	
+	@Test
+	void testUnCircuitoSabeResponderSiEsIgualAOtroCircuitoDado() {
+		Terminal origen = mock(Terminal.class);
+		when(origen.getNombre()).thenReturn("bsas");
+		Tramo t1 = mock(Tramo.class);
+		Tramo t2 = mock(Tramo.class);
+		Tramo t3 = mock(Tramo.class);
+		Tramo t4 = mock(Tramo.class);
+		Tramo t5 = mock(Tramo.class);
+		ArrayList<Tramo> tramos = new ArrayList<Tramo>();
+		tramos.add(t1);
+		tramos.add(t2);
+		tramos.add(t3);
+		tramos.add(t4);
+		tramos.add(t5);
+		when(t1.getDuracion()).thenReturn(23.5d);
+		when(t2.getDuracion()).thenReturn(10d);
+		when(t3.getDuracion()).thenReturn(20.5d);
+		when(t4.getDuracion()).thenReturn(13.5d);
+		when(t5.getDuracion()).thenReturn(7.5d);
+		unCircuito = new Circuito(origen, tramos);
+		Circuito otroCircuito = new Circuito(origen, tramos);
+		assertTrue(unCircuito.equals(otroCircuito));
+	}
 
 }

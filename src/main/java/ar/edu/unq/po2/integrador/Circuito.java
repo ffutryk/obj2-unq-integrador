@@ -1,13 +1,14 @@
 package ar.edu.unq.po2.integrador;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class Circuito {
 	
 	private Terminal origen;
-	private ArrayList<Tramo> tramos;
+	private List<Tramo> tramos;
 	
-	public Circuito(Terminal unaTerminal, ArrayList<Tramo> tramos) throws RuntimeException {
+	public Circuito(Terminal unaTerminal, List<Tramo> tramos) throws RuntimeException {
 		if(tramos.isEmpty()) {
 			throw new RuntimeException("No se puede crear un circuito que no tenga tramos!");
 		}
@@ -55,6 +56,23 @@ public class Circuito {
 			duracion += tramos.get(index).getDuracion(); // Sumo el costo del tramo actual...
 		}
 		return duracion;
+	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true; // mismo objeto
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Circuito circuito = (Circuito) obj;
+        return this.origen.equals(circuito.getOrigen()) && this.tramos.equals(circuito.getTramos());// criterio de igualdad
+    }
+	
+	@Override
+	public int hashCode() {
+	    return Objects.hash(origen, tramos);
+	}
+
+	private List<Tramo> getTramos() {
+		return this.tramos;
 	}
 
 }
