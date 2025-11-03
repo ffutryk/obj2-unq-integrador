@@ -43,4 +43,8 @@ public class Viaje {
 		Duration horas = this.circuito.duracionHasta(destino);
 		return fechaArribo.plus(horas);
 	}
+	
+	public LocalDateTime getFechaSalida() {
+		return this.fechaDeSalida;
+	}
 }
