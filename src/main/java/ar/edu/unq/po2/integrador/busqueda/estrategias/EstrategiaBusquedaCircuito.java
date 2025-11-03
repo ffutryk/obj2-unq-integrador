@@ -1,4 +1,4 @@
-package ar.edu.unq.po2.integrador.busqueda;
+package ar.edu.unq.po2.integrador.busqueda.estrategias;
 
 import java.util.List;
 
