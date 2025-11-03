@@ -1,5 +1,6 @@
 package ar.edu.unq.po2.integrador;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
 
@@ -73,6 +74,19 @@ public class Circuito {
 
 	private List<Tramo> getTramos() {
 		return this.tramos;
+	}
+
+	public Duration duracionHasta(Terminal destino) {
+		// Precondición: La terminal dada está en el circuito.
+		double horas = 0;
+		int index = 0;
+		Tramo tramoActual = tramos.get(index);
+		while(!tramoActual.contieneA(destino)) {
+			horas += tramoActual.getDuracion();
+			index++;
+			tramoActual = tramos.get(index);
+		}
+		return Duration.ofHours((long) horas);		
 	}
 
 }

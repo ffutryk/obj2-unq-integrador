@@ -32,4 +32,8 @@ public class Tramo {
 		return this.destino;
 	}
 
+	public boolean contieneA(Terminal unaTerminal) {
+		return this.origen.equals(unaTerminal) || this.destino.equals(unaTerminal);
+	}
+
 }
