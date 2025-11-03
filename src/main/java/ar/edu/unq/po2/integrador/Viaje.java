@@ -44,6 +44,10 @@ public class Viaje {
 		return fechaArribo.plus(horas);
 	}
 	
+	public boolean pasaPorLaTerminal(Terminal terminal) {
+		return this.circuito.incluyeLaTerminal(terminal);
+	}
+	
 	public LocalDateTime getFechaSalida() {
 		return this.fechaDeSalida;
 	}
