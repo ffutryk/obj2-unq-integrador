@@ -5,6 +5,7 @@ public class Working extends FaseDeViaje {
 	@Override
 	public void realizarAccionPara(Viaje unViaje) {
 		// Trabajos de carga y descarga en curso. Lo cual no se pide implementar en este TP.
+		unViaje.getBuque().cargaYDescarga();
 	}
 
 	@Override

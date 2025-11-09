@@ -27,4 +27,8 @@ public class Buque {
 		}
 	}
 
+	public void cargaYDescarga() {
+		// No se pide modelar en este trabajo...
+	}
+
 }

@@ -102,6 +102,7 @@ class ViajeTest {
         when(unBuque.getPosicion()).thenReturn(posicionBuque);
         when(unaTerminal.getUbicacion()).thenReturn(posicionTerminal);
         when(posicionBuque.distanciaHasta(posicionTerminal)).thenReturn(40d);
+        
     	unViaje.actualizarPosicion();
   
     	verify(unaTerminal).anunciarInminenteLlegada(unViaje);
@@ -117,7 +118,41 @@ class ViajeTest {
         unViaje.actualizarPosicion(); // Simular primera actualizacion del GPS, pasando a Inbound...
         
         unViaje.actualizarPosicion(); // Simular segunda actualizacion del GPS, pasando a Arrived...
+        
         verify(unaTerminal).registrarArribo(unViaje);
+    }
+    
+    @Test
+    void testCuandoUnViajeSeEncuentraEnLaTerminalYSeLeDaLaOrdenDeTrabajar_ComienzaLaCargayDescargaDelBuqueQueLoRealiza() {
+    	PosicionGeografica posicionBuque = mock(PosicionGeografica.class);
+        PosicionGeografica posicionTerminal = mock(PosicionGeografica.class);
+        when(unBuque.getPosicion()).thenReturn(posicionBuque);
+        when(unaTerminal.getUbicacion()).thenReturn(posicionTerminal);
+        when(posicionBuque.distanciaHasta(posicionTerminal)).thenReturn(0d);
+        unViaje.actualizarPosicion(); // Simular primera actualizacion del GPS, pasando a Inbound...
+        unViaje.actualizarPosicion(); // Simular segunda actualizacion del GPS, pasando a Arrived...
+        
+        unViaje.trabajar();
+        
+        verify(unBuque).cargaYDescarga();
+    }
+    
+    @Test
+    void testCuandoUnViajeSeEncuentraEnLaTerminalYSeLeDaLaOrdenDePartir_SeNotificaALaTerminalCuandoSeAleja1Km() {
+    	PosicionGeografica posicionBuque = mock(PosicionGeografica.class);
+        PosicionGeografica posicionTerminal = mock(PosicionGeografica.class);
+        when(unBuque.getPosicion()).thenReturn(posicionBuque);
+        when(unaTerminal.getUbicacion()).thenReturn(posicionTerminal);
+        when(posicionBuque.distanciaHasta(posicionTerminal)).thenReturn(0d);
+        unViaje.actualizarPosicion(); // Simular primera actualizacion del GPS, pasando a Inbound...
+        unViaje.actualizarPosicion(); // Simular segunda actualizacion del GPS, pasando a Arrived...
+        unViaje.trabajar();
+        unViaje.depart();
+        when(posicionBuque.distanciaHasta(posicionTerminal)).thenReturn(2d);
+        
+        unViaje.actualizarPosicion();
+        
+        verify(unaTerminal).anunciarPartida(unViaje);    	
     }
 }
  

@@ -33,7 +33,7 @@ public class Viaje {
 	    return Objects.hash(circuito, buque);
 	}
 
-	public Object getBuque() {
+	public Buque getBuque() {
 		return this.buque;
 	}
 
@@ -85,7 +85,10 @@ public class Viaje {
 
 	protected void notificarInbound() {
 		this.gestionada.anunciarInminenteLlegada(this);
-	}
+	}	
 	
+	public void depart() {
+		this.fase.depart(this);
+	}
 	// Los mensajes cuyo modificador de visibilidad son protected se esperan ser enviados unicamente por la Fase hacia su Viaje correspondiente.
 }
