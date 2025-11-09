@@ -27,7 +27,20 @@ class BuqueTest {
 		when(gps.posicionDe(unBuque)).thenReturn(posNueva);
 		
 		unBuque.actualizarPosicion(gps.posicionDe(unBuque));
+		
 		assertEquals(posNueva, unBuque.getPosicion());
 	}
-
+	
+	@Test
+	void testAlActualizarLaPosicionDeUnBuque_SeActualizaLaPosicionDelViajeQueTieneAsignado() {
+		Viaje unViaje = mock(Viaje.class);
+		IGPS gps = spy(IGPS.class);
+		PosicionGeografica posInicial = mock(PosicionGeografica.class);
+		Buque unBuque = new Buque(gps);
+		unBuque.asignarViaje(unViaje);
+		
+		unBuque.actualizarPosicion(mock(PosicionGeografica.class));
+		
+		verify(unViaje).actualizarPosicion();
+	}
 }

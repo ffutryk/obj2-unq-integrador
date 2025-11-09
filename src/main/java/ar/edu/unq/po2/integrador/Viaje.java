@@ -11,7 +11,7 @@ public class Viaje {
 	private Buque buque;
 	private FaseDeViaje fase;
 	private Terminal gestionada;
-
+	
 	public Viaje(Buque unBuque, Circuito unCircuito, LocalDateTime unaFechaDeSalida, Terminal terminal) {
 		this.fechaDeSalida = unaFechaDeSalida;
 		this.circuito = unCircuito;

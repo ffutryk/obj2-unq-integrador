@@ -42,4 +42,13 @@ class TramoTest {
 		Tramo unTramo = new Tramo(origen, destino, Duration.of(30, ChronoUnit.HOURS), 10.7d);
 		assertEquals(10.7, unTramo.getCosto());
 	}
+	
+	@Test
+	void testUnTramoPuedeRespoderSiContieneAUnaTerminalDada() {
+		Terminal origen = mock(Terminal.class);
+		Terminal destino = mock(Terminal.class);
+		Terminal buscada = mock(Terminal.class);
+		Tramo unTramo = new Tramo(origen, destino, Duration.of(30, ChronoUnit.HOURS), 10.7d);
+		assertFalse(unTramo.contieneA(buscada));
+	}
 }
