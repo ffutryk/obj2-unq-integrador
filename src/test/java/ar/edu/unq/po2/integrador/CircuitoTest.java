@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -83,6 +84,26 @@ class CircuitoTest {
 		when(t4.getCosto()).thenReturn(13.9d);
 		unCircuito = new Circuito(origen, tramos);
 		assertEquals(54.7d, unCircuito.costoEntre(t4, t2), 0.0001d);
+	}
+	
+	@Test
+	void testUnCircuitoSabeResponderElCostoDeTrasladoEntreDosTerminalesQueLoComponen_SeaCualSeaElOrdenDado() {
+		Terminal origen = mock(Terminal.class);
+		Tramo t1 = mock(Tramo.class);
+		Tramo t2 = mock(Tramo.class);
+		Tramo t3 = mock(Tramo.class);
+		Tramo t4 = mock(Tramo.class);
+		ArrayList<Tramo> tramos = new ArrayList<Tramo>();
+		tramos.add(t1);
+		tramos.add(t2);
+		tramos.add(t3);
+		tramos.add(t4);
+		when(t1.getCosto()).thenReturn(23.5d);
+		when(t2.getCosto()).thenReturn(30.1d);
+		when(t3.getCosto()).thenReturn(10.7d);
+		when(t4.getCosto()).thenReturn(13.9d);
+		unCircuito = new Circuito(origen, tramos);
+		assertEquals(54.7d, unCircuito.costoEntre(t2, t4), 0.0001d);
 	}
 	
 	@Test
@@ -192,5 +213,68 @@ class CircuitoTest {
 
 	    assertFalse(unCircuito.incluyeLaTerminal(terminalNoIncluida));
 	}
-
+	
+	@Test
+	void testNoSePuedePedirElCostoEntreDosTramosSiAlgunoDeLosTramosDadosNoPertenceAlCircuito() {
+		Terminal origen = mock(Terminal.class);
+		Tramo t1 = mock(Tramo.class);
+		Tramo t2 = mock(Tramo.class);
+		Tramo t3 = mock(Tramo.class);
+		Tramo t4 = mock(Tramo.class);
+		Tramo tramoFantasma = mock(Tramo.class);
+		ArrayList<Tramo> tramos = new ArrayList<Tramo>();
+		tramos.add(t1);
+		tramos.add(t2);
+		tramos.add(t3);
+		tramos.add(t4);
+		when(t1.getCosto()).thenReturn(23.5d);
+		when(t2.getCosto()).thenReturn(30.1d);
+		when(t3.getCosto()).thenReturn(10.7d);
+		when(t4.getCosto()).thenReturn(13.9d);
+		unCircuito = new Circuito(origen, tramos);
+		assertThrows(RuntimeException.class, () -> unCircuito.costoEntre(tramoFantasma, t2));
+	}
+	
+	@Test
+	void testUnCircuitoPuedeResponderLaDuracionHastaUnaTerminalQueFormeParteDelMismo() {
+		Terminal origen = mock(Terminal.class);
+		Tramo t1 = mock(Tramo.class);
+		Tramo t2 = mock(Tramo.class);
+		Tramo t3 = mock(Tramo.class);
+		Terminal terminalBuscada = mock(Terminal.class);
+		when(t1.getDuracion()).thenReturn(Duration.ofHours(2));
+		when(t1.contieneA(origen)).thenReturn(true);
+		when(t2.getDuracion()).thenReturn(Duration.ofHours(3));
+		when(t3.getDuracion()).thenReturn(Duration.ofHours(5));
+		when(t2.contieneA(terminalBuscada)).thenReturn(true);
+		ArrayList<Tramo> tramos = new ArrayList<Tramo>();
+		tramos.add(t1);
+		tramos.add(t2);
+		tramos.add(t3);
+		unCircuito = new Circuito(origen, tramos);
+		assertEquals(Duration.ofHours(5), unCircuito.duracionHasta(terminalBuscada));
+	}
+	
+	@Test
+	void testDosCircuitosIgualesTienenElMismoHashCode() {
+		Terminal origen = mock(Terminal.class);
+		List<Tramo> tramos = Arrays.asList(mock(Tramo.class));
+		Circuito circuito1 = new Circuito(origen, tramos);
+		Circuito circuito2 = new Circuito(origen, tramos);
+		assertTrue(circuito1.hashCode() == circuito2.hashCode());
+	}
+	
+	@Test
+	void testUnCircuitoPuedeResponderCuantasParadasHayHastaUnaTerminalDadaDelCircuito() {
+		Terminal origen = mock(Terminal.class);
+		Terminal terminalBuscada = mock(Terminal.class);
+		Tramo t1 = mock(Tramo.class);
+		Tramo t2 = mock(Tramo.class);
+		when(t2.contieneA(terminalBuscada)).thenReturn(true);
+		List<Tramo> tramos = new ArrayList<Tramo>();
+		tramos.add(t1);
+		tramos.add(t2);
+		unCircuito = new Circuito(origen, tramos);
+		assertEquals(2, unCircuito.cantidadDeParadasHasta(terminalBuscada));
+	}
 }
