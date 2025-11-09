@@ -156,7 +156,7 @@ class CircuitoTest {
 	void testIncluyeLaTerminalDevuelveTrueSiLaTerminalEsOrigenDeAlgunoDeLosTramos() {
 	    Terminal origen = mock(Terminal.class);
 	    Terminal destino = mock(Terminal.class);
-	    Tramo tramo = mock(Tramo.class);
+	    Tramo tramo = spy(Tramo.class);
 	    when(tramo.getOrigen()).thenReturn(origen);
 	    when(tramo.getDestino()).thenReturn(destino);
 	    ArrayList<Tramo> tramos = new ArrayList<>();
@@ -170,7 +170,7 @@ class CircuitoTest {
 	void testIncluyeLaTerminalDevuelveTrueSiLaTerminalEsDestinoDeAlgunoDeLosTramos() {
 	    Terminal origen = mock(Terminal.class);
 	    Terminal destino = mock(Terminal.class);
-	    Tramo tramo = mock(Tramo.class);
+	    Tramo tramo = spy(Tramo.class);
 	    when(tramo.getOrigen()).thenReturn(mock(Terminal.class));
 	    when(tramo.getDestino()).thenReturn(destino);
 	    ArrayList<Tramo> tramos = new ArrayList<>();

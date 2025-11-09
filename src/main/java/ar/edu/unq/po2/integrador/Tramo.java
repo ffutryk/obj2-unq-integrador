@@ -8,6 +8,10 @@ public class Tramo {
 	private double costo;
 	private Terminal origen;
 	private Terminal destino;
+	
+	public Tramo() {
+		
+	}
 
 	public Tramo(Terminal origen, Terminal destino, Duration duracion, double costo) {
 		this.duracion = duracion;
@@ -33,7 +37,7 @@ public class Tramo {
 	}
 
 	public boolean contieneA(Terminal unaTerminal) {
-		return this.origen.equals(unaTerminal) || this.destino.equals(unaTerminal);
+		return this.getOrigen().equals(unaTerminal) || this.getDestino().equals(unaTerminal);
 	}
 
 }

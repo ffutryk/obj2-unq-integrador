@@ -90,7 +90,7 @@ public class Circuito {
 	public boolean incluyeLaTerminal(Terminal terminal) {
 	    return this.getTramos()
 	    		   .stream()
-	               .anyMatch(t -> t.getDestino().equals(terminal) || t.getOrigen().equals(terminal)); 
+	               .anyMatch(tramo -> tramo.contieneA(terminal)); 
 	}
 
 	public int cantidadDeParadasHasta(Terminal terminal) {

@@ -9,11 +9,15 @@ public class Viaje {
 	private LocalDateTime fechaDeSalida; // Usé LocalDateTime a pesar de que en el UML pusimos LocalDate porque LocalDate no tiene la hora y la duracion de los tramos al estar en horas necesito sumar las duraciones para obtener la fecha estimada.
 	private Circuito circuito;
 	private Buque buque;
+	private FaseDeViaje fase;
+	private Terminal gestionada;
 
-	public Viaje(Buque unBuque, Circuito unCircuito, LocalDateTime unaFechaDeSalida) {
+	public Viaje(Buque unBuque, Circuito unCircuito, LocalDateTime unaFechaDeSalida, Terminal terminal) {
 		this.fechaDeSalida = unaFechaDeSalida;
 		this.circuito = unCircuito;
 		this.buque = unBuque;
+		this.fase = new Outbound(); // Fase inicial
+		this.gestionada = terminal;
 	}
 	
 	@Override
@@ -51,4 +55,37 @@ public class Viaje {
 	public LocalDateTime getFechaSalida() {
 		return this.fechaDeSalida;
 	}
+
+	public void actualizarPosicion() {
+		this.fase.actualizarPosicionPara(this);
+	}
+
+	protected double distanciaATerminalGestionada() {
+		return this.buque.getPosicion().distanciaHasta(this.gestionada.getUbicacion());
+	}
+
+	protected void setFase(FaseDeViaje unaFase) {
+		this.fase = unaFase;
+		//this.fase.realizarAccionPara(this);
+	}
+
+	protected void notificarArrived() {
+		this.gestionada.registrarArribo(this);
+	}
+	
+	public void trabajar() {
+		this.fase.trabajar(this);
+	}
+
+	protected void notificarDepart() {
+		this.gestionada.anunciarPartida(this);	  // Notificar via mail 
+		this.gestionada.enviarFacturasPara(this); // Enviar las facturas via mail con desglose de servicios a quien corresponda.
+												  // Nota: anunciarPartida y enviarFacturasPara no deberían ser mensajes publicos de la terminal gestionada, deberían ser package o algo por el estilo y que solo se los envie un Viaje a la terminal y no sean mensajes que le puede enviar un cliente (shipper o consignee).
+	}
+
+	protected void notificarInbound() {
+		this.gestionada.anunciarInminenteLlegada(this);
+	}
+	
+	// Los mensajes cuyo modificador de visibilidad son protected se esperan ser enviados unicamente por la Fase hacia su Viaje correspondiente.
 }
