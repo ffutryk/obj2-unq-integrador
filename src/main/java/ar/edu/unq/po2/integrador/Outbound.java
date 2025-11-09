@@ -11,7 +11,6 @@ public class Outbound extends FaseDeViaje {
 	public void actualizarPosicionPara(Viaje unViaje) {
 		if(unViaje.distanciaATerminalGestionada() < 50d) {
 			unViaje.setFase(new Inbound());
-			this.realizarAccionPara(unViaje);
 		}
 	}
 

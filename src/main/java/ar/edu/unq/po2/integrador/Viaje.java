@@ -66,7 +66,7 @@ public class Viaje {
 
 	protected void setFase(FaseDeViaje unaFase) {
 		this.fase = unaFase;
-		//this.fase.realizarAccionPara(this);
+		this.fase.realizarAccionPara(this);
 	}
 
 	protected void notificarArrived() {
