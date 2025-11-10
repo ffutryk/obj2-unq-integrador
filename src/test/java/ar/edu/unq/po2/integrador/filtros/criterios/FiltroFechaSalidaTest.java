@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import ar.edu.unq.po2.integrador.Viaje;
+import ar.edu.unq.po2.integrador.fases.Viaje;
 import ar.edu.unq.po2.integrador.filtros.comparadores.EstrategiaComparacionFecha;
 
 class FiltroFechaSalidaTest {

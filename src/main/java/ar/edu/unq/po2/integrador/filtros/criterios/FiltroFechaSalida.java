@@ -1,6 +1,6 @@
 package ar.edu.unq.po2.integrador.filtros.criterios;
 
-import ar.edu.unq.po2.integrador.Viaje;
+import ar.edu.unq.po2.integrador.fases.Viaje;
 import ar.edu.unq.po2.integrador.filtros.comparadores.EstrategiaComparacionFecha;
 
 public class FiltroFechaSalida extends FiltroPorFecha {

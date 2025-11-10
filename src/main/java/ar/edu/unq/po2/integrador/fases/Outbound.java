@@ -1,4 +1,4 @@
-package ar.edu.unq.po2.integrador;
+package ar.edu.unq.po2.integrador.fases;
 
 public class Outbound extends FaseDeViaje {
 

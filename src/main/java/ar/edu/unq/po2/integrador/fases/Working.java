@@ -1,4 +1,4 @@
-package ar.edu.unq.po2.integrador;
+package ar.edu.unq.po2.integrador.fases;
 
 public class Working extends FaseDeViaje {
 
@@ -11,7 +11,6 @@ public class Working extends FaseDeViaje {
 	@Override
 	public void actualizarPosicionPara(Viaje unViaje) {
 		// Esta fase no cambia por posición, cambia por orden de la terminal gestionada...
-		this.realizarAccionPara(unViaje); // Seguir realizando carga y descarga...
 	}
 
 	@Override

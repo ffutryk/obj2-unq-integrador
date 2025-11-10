@@ -1,4 +1,4 @@
- package ar.edu.unq.po2.integrador;
+ package ar.edu.unq.po2.integrador.fases;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -9,6 +9,12 @@ import java.util.Objects;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import ar.edu.unq.po2.integrador.Buque;
+import ar.edu.unq.po2.integrador.Circuito;
+import ar.edu.unq.po2.integrador.PosicionGeografica;
+import ar.edu.unq.po2.integrador.Terminal;
+import ar.edu.unq.po2.integrador.fases.Viaje;
 
 class ViajeTest {
 

@@ -1,8 +1,12 @@
-package ar.edu.unq.po2.integrador;
+package ar.edu.unq.po2.integrador.fases;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
+
+import ar.edu.unq.po2.integrador.Buque;
+import ar.edu.unq.po2.integrador.Circuito;
+import ar.edu.unq.po2.integrador.Terminal;
 
 public class Viaje {
 	

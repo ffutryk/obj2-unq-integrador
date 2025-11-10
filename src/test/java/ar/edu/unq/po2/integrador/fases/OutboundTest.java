@@ -1,9 +1,14 @@
-package ar.edu.unq.po2.integrador;
+package ar.edu.unq.po2.integrador.fases;
 
 import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import ar.edu.unq.po2.integrador.fases.FaseDeViaje;
+import ar.edu.unq.po2.integrador.fases.Inbound;
+import ar.edu.unq.po2.integrador.fases.Outbound;
+import ar.edu.unq.po2.integrador.fases.Viaje;
 
 class OutboundTest {
 	
