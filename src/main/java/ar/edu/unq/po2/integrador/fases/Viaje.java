@@ -1,8 +1,12 @@
-package ar.edu.unq.po2.integrador;
+package ar.edu.unq.po2.integrador.fases;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
+
+import ar.edu.unq.po2.integrador.Buque;
+import ar.edu.unq.po2.integrador.Circuito;
+import ar.edu.unq.po2.integrador.Terminal;
 
 public class Viaje {
 	
@@ -33,7 +37,7 @@ public class Viaje {
 	    return Objects.hash(circuito, buque);
 	}
 
-	public Object getBuque() {
+	public Buque getBuque() {
 		return this.buque;
 	}
 
@@ -68,24 +72,17 @@ public class Viaje {
 		this.fase = unaFase;
 		this.fase.realizarAccionPara(this);
 	}
-
-	protected void notificarArrived() {
-		this.gestionada.registrarArribo(this);
-	}
 	
 	public void trabajar() {
 		this.fase.trabajar(this);
 	}
-
-	protected void notificarDepart() {
-		this.gestionada.anunciarPartida(this);	  // Notificar via mail 
-		this.gestionada.enviarFacturasPara(this); // Enviar las facturas via mail con desglose de servicios a quien corresponda.
-												  // Nota: anunciarPartida y enviarFacturasPara no deberían ser mensajes publicos de la terminal gestionada, deberían ser package o algo por el estilo y que solo se los envie un Viaje a la terminal y no sean mensajes que le puede enviar un cliente (shipper o consignee).
-	}
-
-	protected void notificarInbound() {
-		this.gestionada.anunciarInminenteLlegada(this);
-	}
 	
+	public void depart() {
+		this.fase.depart(this);
+	}
 	// Los mensajes cuyo modificador de visibilidad son protected se esperan ser enviados unicamente por la Fase hacia su Viaje correspondiente.
+
+	public Terminal getGestionada() {
+		return this.gestionada;
+	}
 }

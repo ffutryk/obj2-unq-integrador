@@ -1,5 +1,7 @@
 package ar.edu.unq.po2.integrador;
 
+import ar.edu.unq.po2.integrador.fases.Viaje;
+
 public class Buque {
 	
 	private IGPS gps;
@@ -25,6 +27,10 @@ public class Buque {
 		if(this.viaje != null) {
 			this.viaje.actualizarPosicion();
 		}
+	}
+
+	public void cargaYDescarga() {
+		// No se pide modelar en este trabajo...
 	}
 
 }

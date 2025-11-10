@@ -1,4 +1,4 @@
-package ar.edu.unq.po2.integrador;
+package ar.edu.unq.po2.integrador.fases;
 
 public class Departing extends FaseDeViaje {
 
@@ -6,7 +6,8 @@ public class Departing extends FaseDeViaje {
 	public void realizarAccionPara(Viaje unViaje) {
 		if(unViaje.distanciaATerminalGestionada() > 1d) {
 			unViaje.setFase(new Outbound());
-			unViaje.notificarDepart();
+			unViaje.getGestionada().anunciarPartida(unViaje);
+			unViaje.getGestionada().enviarFacturasPara(unViaje); // Esto creo que sería algo internamente que debería hacer la terminal gestionada en su método para *anunciarPartida(Viaje)*...
 		}
 	}
 

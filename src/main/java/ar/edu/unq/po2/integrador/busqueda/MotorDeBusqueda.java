@@ -4,8 +4,8 @@ import java.util.List;
 
 import ar.edu.unq.po2.integrador.Circuito;
 import ar.edu.unq.po2.integrador.Terminal;
-import ar.edu.unq.po2.integrador.Viaje;
 import ar.edu.unq.po2.integrador.busqueda.estrategias.EstrategiaBusquedaCircuito;
+import ar.edu.unq.po2.integrador.fases.Viaje;
 import ar.edu.unq.po2.integrador.filtros.IFiltroViaje;
 
 public class MotorDeBusqueda {

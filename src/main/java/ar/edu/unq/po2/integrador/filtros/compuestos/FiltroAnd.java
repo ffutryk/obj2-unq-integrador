@@ -1,6 +1,6 @@
 package ar.edu.unq.po2.integrador.filtros.compuestos;
 
-import ar.edu.unq.po2.integrador.Viaje;
+import ar.edu.unq.po2.integrador.fases.Viaje;
 import ar.edu.unq.po2.integrador.filtros.IFiltroViaje;
 
 public class FiltroAnd extends FiltroCompuesto {

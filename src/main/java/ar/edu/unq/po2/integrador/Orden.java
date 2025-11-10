@@ -2,9 +2,13 @@ package ar.edu.unq.po2.integrador;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import ar.edu.unq.po2.integrador.containers.Container;
 import ar.edu.unq.po2.integrador.servicios.DesgloseDeServicio;
 import ar.edu.unq.po2.integrador.servicios.Servicio;
+=======
+import ar.edu.unq.po2.integrador.fases.Viaje;
+>>>>>>> 10887dc20449e5958b81b4b19a48e044ba4ac2d1
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -3,6 +3,8 @@ package ar.edu.unq.po2.integrador;
 import java.util.List;
 import java.util.Set;
 
+import ar.edu.unq.po2.integrador.fases.Viaje;
+
 public class Naviera {
 	
 	private String nombre;

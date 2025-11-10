@@ -1,10 +1,10 @@
-package ar.edu.unq.po2.integrador;
+package ar.edu.unq.po2.integrador.fases;
 
 public class Arrived extends FaseDeViaje {
 
 	@Override
 	public void realizarAccionPara(Viaje unViaje) {
-		unViaje.notificarArrived();
+		unViaje.getGestionada().registrarArribo(unViaje);
 	}
 
 	@Override

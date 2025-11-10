@@ -1,10 +1,10 @@
-package ar.edu.unq.po2.integrador;
+package ar.edu.unq.po2.integrador.fases;
 
 public class Inbound extends FaseDeViaje {
 
 	@Override
 	public void realizarAccionPara(Viaje unViaje) {
-		unViaje.notificarInbound();
+		unViaje.getGestionada().anunciarInminenteLlegada(unViaje);
 	}
 
 	@Override

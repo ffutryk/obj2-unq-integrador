@@ -5,6 +5,8 @@ import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.Test;
 
+import ar.edu.unq.po2.integrador.fases.Viaje;
+
 class BuqueTest {
 
 	@Test

@@ -6,7 +6,7 @@ import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import ar.edu.unq.po2.integrador.Viaje;
+import ar.edu.unq.po2.integrador.fases.Viaje;
 import ar.edu.unq.po2.integrador.filtros.IFiltroViaje;
 
 class FiltroOrTest {

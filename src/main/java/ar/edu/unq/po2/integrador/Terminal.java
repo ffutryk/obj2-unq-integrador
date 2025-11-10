@@ -3,6 +3,8 @@ package ar.edu.unq.po2.integrador;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.edu.unq.po2.integrador.fases.Viaje;
+
 public class Terminal {
 	
 	private String nombre;
