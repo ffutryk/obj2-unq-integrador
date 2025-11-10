@@ -1,4 +1,7 @@
-package ar.edu.unq.po2.integrador;
+package ar.edu.unq.po2.integrador.servicios;
+
+import ar.edu.unq.po2.integrador.Orden;
+import ar.edu.unq.po2.integrador.containers.Container;
 
 public class ServicioPesado implements Servicio{
 

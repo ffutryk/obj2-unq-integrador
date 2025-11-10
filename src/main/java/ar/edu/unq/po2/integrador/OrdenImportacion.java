@@ -3,6 +3,8 @@ package ar.edu.unq.po2.integrador;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
+import ar.edu.unq.po2.integrador.containers.Container;
+
 public class OrdenImportacion extends Orden {
 
 	private LocalDate fechaRetiro;

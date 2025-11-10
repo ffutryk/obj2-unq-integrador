@@ -1,6 +1,11 @@
 package ar.edu.unq.po2.integrador;
 
 import java.util.List;
+
+import ar.edu.unq.po2.integrador.containers.Container;
+import ar.edu.unq.po2.integrador.servicios.DesgloseDeServicio;
+import ar.edu.unq.po2.integrador.servicios.Servicio;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -43,5 +48,21 @@ public abstract class Orden {
 	}
 	
 	public abstract LocalDate getFechaDeFacturacion();
+	
+	public Cliente getCliente() {
+	    return cliente;
+	}
+	
+	public Viaje getViaje() {
+	    return viaje;
+	}
+	
+	public List<DesgloseDeServicio> getDesgloses() {
+	    return serviciosContratados;
+	}
+	
+	public double totalServicios() {
+	    return serviciosContratados.stream().mapToDouble(s->s.getCosto()).sum();
+	}
 	
 }

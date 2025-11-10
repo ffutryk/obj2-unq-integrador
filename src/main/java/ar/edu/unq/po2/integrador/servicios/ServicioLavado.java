@@ -1,4 +1,7 @@
-package ar.edu.unq.po2.integrador;
+package ar.edu.unq.po2.integrador.servicios;
+
+import ar.edu.unq.po2.integrador.Orden;
+import ar.edu.unq.po2.integrador.containers.Container;
 
 public class ServicioLavado implements Servicio{
 
@@ -20,6 +23,6 @@ public class ServicioLavado implements Servicio{
 	
 	@Override
 	public DesgloseDeServicio obtenerDesglose(Container c, Orden o) {
-		return new DesgloseDeServicio("ServicioPesado", o.getTurno(), importePara(c, o));
+		return new DesgloseDeServicio("ServicioLavado", o.getTurno(), importePara(c, o));
 	} //Esta bien el segundo  parametro?
 }

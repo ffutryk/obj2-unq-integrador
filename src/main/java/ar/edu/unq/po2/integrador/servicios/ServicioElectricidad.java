@@ -1,6 +1,9 @@
-package ar.edu.unq.po2.integrador;
+package ar.edu.unq.po2.integrador.servicios;
 
 import java.time.LocalDate;
+
+import ar.edu.unq.po2.integrador.Orden;
+import ar.edu.unq.po2.integrador.containers.Container;
 
 public class ServicioElectricidad implements Servicio{
 
@@ -17,6 +20,6 @@ public class ServicioElectricidad implements Servicio{
 	}
 	
 	public DesgloseDeServicio obtenerDesglose(Container c, Orden o) {
-		return new DesgloseDeServicio("ServicioAlmacenamientoExcedente", o.getTurno(), importePara(c, o));
+		return new DesgloseDeServicio("ServicioElectricidad", o.getFechaDeFacturacion(), importePara(c, o));
 	}	//Esta bien el segundo  parametro? o deberia ser el turno para los dias excedentes?
 }

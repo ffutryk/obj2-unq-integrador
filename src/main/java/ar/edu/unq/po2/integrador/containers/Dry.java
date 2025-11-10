@@ -1,4 +1,6 @@
-package ar.edu.unq.po2.integrador;
+package ar.edu.unq.po2.integrador.containers;
+
+import ar.edu.unq.po2.integrador.bl.IBillOfLanding;
 
 public class Dry extends Container {
 

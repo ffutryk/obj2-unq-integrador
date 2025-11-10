@@ -1,7 +1,12 @@
-package ar.edu.unq.po2.integrador;
+package ar.edu.unq.po2.integrador.containers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import ar.edu.unq.po2.integrador.bl.BillOfLanding;
+import ar.edu.unq.po2.integrador.bl.IBillOfLanding;
+import ar.edu.unq.po2.integrador.containers.Dry;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 

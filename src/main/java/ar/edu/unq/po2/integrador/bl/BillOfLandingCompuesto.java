@@ -1,7 +1,9 @@
-package ar.edu.unq.po2.integrador;
+package ar.edu.unq.po2.integrador.bl;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ar.edu.unq.po2.integrador.Pair;
 
 public class BillOfLandingCompuesto implements IBillOfLanding {
 

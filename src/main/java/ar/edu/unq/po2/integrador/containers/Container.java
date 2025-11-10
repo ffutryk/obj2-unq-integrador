@@ -1,6 +1,9 @@
-package ar.edu.unq.po2.integrador;
+package ar.edu.unq.po2.integrador.containers;
 
 import java.util.List;
+
+import ar.edu.unq.po2.integrador.Pair;
+import ar.edu.unq.po2.integrador.bl.IBillOfLanding;
 
 public abstract class Container {
 	

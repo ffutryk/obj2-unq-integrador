@@ -1,12 +1,15 @@
-package ar.edu.unq.po2.integrador;
+package ar.edu.unq.po2.integrador.servicios;
 
 import java.time.LocalDate;
+
+import ar.edu.unq.po2.integrador.Orden;
+import ar.edu.unq.po2.integrador.containers.Container;
 
 public class ServicioAlmacenamientoExcedente implements Servicio{
 
 	private double montoPorDia;
 	
-	public ServicioAlmacenamientoExcedente(double montoPorDia, LocalDate fechaLlegada) {
+	public ServicioAlmacenamientoExcedente(double montoPorDia) {
 		this.montoPorDia = montoPorDia;
 	}
 
@@ -14,6 +17,7 @@ public class ServicioAlmacenamientoExcedente implements Servicio{
 	public double importePara(Container c, Orden o) {
 		if(! o.esDeImportacion()) return 0;
 		double dias = o.diasDeServicio() -1; // puse -1 xq el primer dia no se cobra
+		if (dias <= 0) dias = 0; //para evitar cobrar negativo 
 		return dias * montoPorDia;
 	}
 	
