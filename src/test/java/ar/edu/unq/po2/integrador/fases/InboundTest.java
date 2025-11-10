@@ -1,26 +1,24 @@
 package ar.edu.unq.po2.integrador.fases;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import ar.edu.unq.po2.integrador.fases.Arrived;
-import ar.edu.unq.po2.integrador.fases.FaseDeViaje;
-import ar.edu.unq.po2.integrador.fases.Inbound;
-import ar.edu.unq.po2.integrador.fases.Outbound;
-import ar.edu.unq.po2.integrador.fases.Viaje;
+import ar.edu.unq.po2.integrador.Terminal;
 
 class InboundTest {
 	
 	FaseDeViaje faseInbound;
 	Viaje viajeCorrespondiente;
+	Terminal gestionada;
 	
 	@BeforeEach
 	void setUp() throws Exception {
 		faseInbound = new Inbound();
 		viajeCorrespondiente = mock(Viaje.class);
+		gestionada = mock(Terminal.class);
+		when(viajeCorrespondiente.getGestionada()).thenReturn(gestionada);
 	}
 
 	@Test
@@ -51,9 +49,9 @@ class InboundTest {
 	}
 	
 	@Test
-	void testAlIngresarEnEstaFase_LaMismaNotificaASuViajeCorrespondiente() {
+	void testAlIngresarEnEstaFase_LaFaseNotificaALaTerminalSobreElInminenteArriboDelViaje() {
 		faseInbound.realizarAccionPara(viajeCorrespondiente);
-		verify(viajeCorrespondiente).notificarInbound();
+		verify(gestionada).anunciarInminenteLlegada(viajeCorrespondiente);
 	}
 
 }

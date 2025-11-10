@@ -4,7 +4,7 @@ public class Arrived extends FaseDeViaje {
 
 	@Override
 	public void realizarAccionPara(Viaje unViaje) {
-		unViaje.notificarArrived();
+		unViaje.getGestionada().registrarArribo(unViaje);
 	}
 
 	@Override

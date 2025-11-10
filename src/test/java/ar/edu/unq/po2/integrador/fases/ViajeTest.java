@@ -5,7 +5,6 @@ import static org.mockito.Mockito.*;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,6 @@ import ar.edu.unq.po2.integrador.Buque;
 import ar.edu.unq.po2.integrador.Circuito;
 import ar.edu.unq.po2.integrador.PosicionGeografica;
 import ar.edu.unq.po2.integrador.Terminal;
-import ar.edu.unq.po2.integrador.fases.Viaje;
 
 class ViajeTest {
 

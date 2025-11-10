@@ -1,16 +1,11 @@
 package ar.edu.unq.po2.integrador.fases;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.integrador.Buque;
-import ar.edu.unq.po2.integrador.fases.Departing;
-import ar.edu.unq.po2.integrador.fases.FaseDeViaje;
-import ar.edu.unq.po2.integrador.fases.Viaje;
-import ar.edu.unq.po2.integrador.fases.Working;
 
 class WorkingTest {
 
