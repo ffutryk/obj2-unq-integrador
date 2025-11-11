@@ -13,6 +13,7 @@ public class Buque implements IReportable {
 	public Buque(IGPS unGPS, String nombre) {
 		this.gps = unGPS;
 		this.pos = gps.posicionDe(this);
+		this.nombre = nombre;
 		this.viaje = null;
 	}
 

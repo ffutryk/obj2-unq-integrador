@@ -158,5 +158,21 @@ class ViajeTest {
         
         verify(unaTerminal).anunciarPartida(unViaje);    	
     }
+    
+    @Test
+    void testCuandoUnViajeEsConsultadoPorSuHabilitacionDeExportacion_DelegaLaConsultaEnSuFase() {
+    	FaseDeViaje fase = mock(FaseDeViaje.class);
+    	unViaje.setFase(fase);
+    	unViaje.estaHabilitadoParaExportacion();
+    	verify(fase).estaHabilitadaParaExportacion();
+    }
+    
+    @Test
+    void testCuandoUnViajeEsConsultadoPorSuHabilitacionDeImportacion_DelegaLaConsultaEnSuFase() {
+    	FaseDeViaje fase = mock(FaseDeViaje.class);
+    	unViaje.setFase(fase);
+    	unViaje.estaHabilitadoParaImportacion();
+    	verify(fase).estaHabilitadaParaImportacion();
+    }
 }
  

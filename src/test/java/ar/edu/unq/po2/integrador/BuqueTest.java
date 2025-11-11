@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.integrador.fases.Viaje;
+import ar.edu.unq.po2.integrador.reportes.VisitanteReportable;
 
 class BuqueTest {
 
@@ -45,4 +46,47 @@ class BuqueTest {
 		
 		verify(unViaje).actualizarPosicion();
 	}
+	
+	@Test
+	void testUnBuqueSabeResponderSuNombre() {
+		IGPS gps = spy(IGPS.class);
+		Buque unBuque = new Buque(gps, "lorem ipsum");
+		assertEquals("lorem ipsum", unBuque.nombre());
+	}
+	
+	@Test
+	void testUnBuqueSabeResponderSuViajeAsociado() {
+		Viaje unViaje = mock(Viaje.class);
+		IGPS gps = spy(IGPS.class);
+		Buque unBuque = new Buque(gps, "lorem ipsum");
+		unBuque.asignarViaje(unViaje);
+		assertEquals(unViaje, unBuque.viaje());
+	}
+	
+	@Test
+	void testUnBuqueDelegaUnaVisitaEnSuVisitante() {
+		Viaje unViaje = mock(Viaje.class);
+		IGPS gps = spy(IGPS.class);
+		Buque unBuque = new Buque(gps, "lorem ipsum");
+		unBuque.asignarViaje(unViaje);
+		VisitanteReportable visitante = mock(VisitanteReportable.class);
+		
+		unBuque.aceptar(visitante);
+		
+		verify(visitante).visitar(unBuque);
+	}
+	
+	@Test
+	void testLaCargayDescargaDeUnBuqueNoInteractuaConSuViajeAsociado() {
+		Viaje unViaje = mock(Viaje.class);
+		IGPS gps = spy(IGPS.class);
+		Buque unBuque = new Buque(gps, "lorem ipsum");
+		unBuque.asignarViaje(unViaje);
+		
+		unBuque.cargaYDescarga();
+		
+		verifyNoInteractions(unViaje);
+	}
+	
+	
 }
