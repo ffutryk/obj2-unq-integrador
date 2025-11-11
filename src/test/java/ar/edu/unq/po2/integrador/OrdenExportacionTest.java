@@ -1,6 +1,6 @@
 package ar.edu.unq.po2.integrador;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +19,7 @@ public class OrdenExportacionTest {
     private String camion;
     private String chofer;
     private Cliente cliente;
-    private LocalDate fechaSalida;
+    private LocalDateTime fechaSalida;
     private Servicio servicio1;
     private Servicio servicio2;
     
@@ -30,7 +30,7 @@ public class OrdenExportacionTest {
         camion = "TER564";
         chofer = "Jorge";
         cliente = mock(Cliente.class);
-        fechaSalida = LocalDate.of(2025, 11, 1);
+        fechaSalida = LocalDateTime.of(2025, 11, 1, 8, 0);
         
         servicio1 = mock(Servicio.class);
         servicio2 = mock(Servicio.class);
@@ -50,13 +50,13 @@ public class OrdenExportacionTest {
     
     @Test
     void testDiasDeServicioConIngreso() {
-        orden.registrarIngreso(LocalDate.of(2025, 11, 6));
+        orden.registrarIngreso(LocalDateTime.of(2025, 11, 6, 8, 0));
         assertEquals(5, orden.diasDeServicio());
     }
     
     @Test
     void testGetFechaDeFacturacionDevuelveFechaDeIngreso() {
-        LocalDate ingreso = LocalDate.of(2025, 11, 6);
+        LocalDateTime ingreso = LocalDateTime.of(2025, 11, 6, 8, 0);
         orden.registrarIngreso(ingreso);
         assertEquals(ingreso, orden.getFechaDeFacturacion());
     }

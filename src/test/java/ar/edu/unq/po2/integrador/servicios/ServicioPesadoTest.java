@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import ar.edu.unq.po2.integrador.OrdenImportacion;
 import ar.edu.unq.po2.integrador.Orden;
 import ar.edu.unq.po2.integrador.containers.Tanque;
@@ -30,7 +30,7 @@ public class ServicioPesadoTest {
     
     @Test
     void testObtenerDesgloseUsaFechaTurnoDeOrden() {
-        LocalDate fecha = LocalDate.of(2025, 11, 10);
+        LocalDateTime fecha = LocalDateTime.of(2025, 11, 10, 8, 0);
         when(ordenI.getTurno()).thenReturn(fecha);
         DesgloseDeServicio desglose = servicioP.obtenerDesglose(container, ordenI);
         assertEquals("ServicioPesado", desglose.getNombre());

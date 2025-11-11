@@ -1,6 +1,6 @@
 package ar.edu.unq.po2.integrador;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import ar.edu.unq.po2.integrador.containers.Container;
@@ -9,13 +9,13 @@ import ar.edu.unq.po2.integrador.reportes.VisitanteReportable;
 
 public class OrdenImportacion extends Orden {
 
-	private LocalDate fechaRetiro;
+	private LocalDateTime fechaRetiro;
 	
-	public OrdenImportacion(Viaje viaje, Container container, String camion, String chofer, Cliente cliente, LocalDate fechaLlegada) {
+	public OrdenImportacion(Viaje viaje, Container container, String camion, String chofer, Cliente cliente, LocalDateTime fechaLlegada) {
 		super(viaje, container, camion, chofer, cliente, fechaLlegada);
 	}
 	 
-	public void registrarRetiro(LocalDate fechaRetiro) {
+	public void registrarRetiro(LocalDateTime fechaRetiro) {
 		this.fechaRetiro = fechaRetiro;
 	}
 	 
@@ -29,7 +29,7 @@ public class OrdenImportacion extends Orden {
 		return true;
 	}
 	
-	public LocalDate getFechaDeFacturacion() {
+	public LocalDateTime getFechaDeFacturacion() {
 		return fechaRetiro;
 	}
 	

@@ -1,10 +1,11 @@
 package ar.edu.unq.po2.integrador;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.integrador.containers.Container;
+import ar.edu.unq.po2.integrador.fases.Viaje;
 import ar.edu.unq.po2.integrador.servicios.DesgloseDeServicio;
 import ar.edu.unq.po2.integrador.servicios.Servicio;
 
@@ -19,7 +20,7 @@ public class OrdenImportacionTest {
     private String camion;
     private String chofer;
     private Cliente cliente;
-    private LocalDate fechaLlegada;
+    private LocalDateTime fechaLlegada;
     private Servicio servicio1;
     private Servicio servicio2;
     
@@ -30,7 +31,7 @@ public class OrdenImportacionTest {
         camion = "TER564";
         chofer = "Jorge";
         cliente = mock(Cliente.class);
-        fechaLlegada = LocalDate.of(2025, 11, 1);
+        fechaLlegada = LocalDateTime.of(2025, 11, 1, 8, 0);
 
         servicio1 = mock(Servicio.class);
         servicio2 = mock(Servicio.class);
@@ -51,13 +52,13 @@ public class OrdenImportacionTest {
     
     @Test
     void testDiasDeServicioConRetiro() {
-        orden.registrarRetiro(LocalDate.of(2025, 11, 5));
+        orden.registrarRetiro(LocalDateTime.of(2025, 11, 5, 8, 0));
         assertEquals(4, orden.diasDeServicio());
     }
 
     @Test
     void testGetFechaDeFacturacionDevuelveFechaDeRetiro() {
-        LocalDate retiro = LocalDate.of(2025, 11, 10);
+        LocalDateTime retiro = LocalDateTime.of(2025, 11, 10, 8, 0);
         orden.registrarRetiro(retiro);
         assertEquals(retiro, orden.getFechaDeFacturacion());
     }
@@ -88,8 +89,8 @@ public class OrdenImportacionTest {
     
     @Test
     public void testSumaTotalServicios() {
-    	DesgloseDeServicio desg1 = new DesgloseDeServicio("Servicio A", LocalDate.now(), 50.0);
-        DesgloseDeServicio desg2 = new DesgloseDeServicio("Servicio B", LocalDate.now(), 70.0);
+    	DesgloseDeServicio desg1 = new DesgloseDeServicio("Servicio A", LocalDateTime.now(), 50.0);
+        DesgloseDeServicio desg2 = new DesgloseDeServicio("Servicio B", LocalDateTime.now(), 70.0);
         when(servicio1.obtenerDesglose(container, orden)).thenReturn(desg1);
         when(servicio2.obtenerDesglose(container, orden)).thenReturn(desg2);
         orden.agregarDesgloseServicio(servicio1);

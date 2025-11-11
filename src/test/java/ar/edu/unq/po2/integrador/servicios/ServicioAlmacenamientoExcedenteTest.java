@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import ar.edu.unq.po2.integrador.OrdenExportacion;
 import ar.edu.unq.po2.integrador.OrdenImportacion;
 import ar.edu.unq.po2.integrador.Orden;
 import ar.edu.unq.po2.integrador.containers.Tanque;
 import ar.edu.unq.po2.integrador.containers.Container;
-import ar.edu.unq.po2.integrador.containers.Refeer;
+
 
 public class ServicioAlmacenamientoExcedenteTest {
 	
@@ -47,7 +47,7 @@ public class ServicioAlmacenamientoExcedenteTest {
     
     @Test
     void testObtenerDesgloseCreaDesgloseCorrectamente() {
-        LocalDate fechaFacturacion = LocalDate.of(2025, 11, 15);
+        LocalDateTime fechaFacturacion = LocalDateTime.of(2025, 11, 15, 8, 0);
         when(ordenE.esDeImportacion()).thenReturn(true);
         when(ordenE.diasDeServicio()).thenReturn(2.0);
         when(ordenE.getFechaDeFacturacion()).thenReturn(fechaFacturacion);

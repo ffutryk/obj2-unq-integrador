@@ -8,7 +8,7 @@ import ar.edu.unq.po2.integrador.servicios.Servicio;
 import ar.edu.unq.po2.integrador.fases.Viaje;
 import ar.edu.unq.po2.integrador.reportes.IReportable;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public abstract class Orden implements IReportable {
@@ -16,12 +16,12 @@ public abstract class Orden implements IReportable {
 	private Container container;
 	private Cliente cliente;
 	private List<DesgloseDeServicio> serviciosContratados;
-	private LocalDate turno;  //fechaLlegada o fechaSalida (depende si es impo o expo)
+	private LocalDateTime turno;  //fechaLlegada o fechaSalida (depende si es impo o expo)
 	private Viaje viaje;
 	private String chofer;
 	private String camion;
 
-	public Orden(Viaje viaje, Container container, String camion, String chofer, Cliente cliente, LocalDate turno) {
+	public Orden(Viaje viaje, Container container, String camion, String chofer, Cliente cliente, LocalDateTime turno) {
 		this.cliente = cliente;
 		this.container = container;
 		this.serviciosContratados = new ArrayList<DesgloseDeServicio>();
@@ -35,7 +35,7 @@ public abstract class Orden implements IReportable {
 		serviciosContratados.add(s.obtenerDesglose(this.container, this));
 	}
 	
-	public LocalDate getTurno() {
+	public LocalDateTime getTurno() {
 		return turno;
 	}
 	
@@ -49,7 +49,7 @@ public abstract class Orden implements IReportable {
 		return false;
 	}
 	
-	public abstract LocalDate getFechaDeFacturacion();
+	public abstract LocalDateTime getFechaDeFacturacion();
 	
 	public Cliente getCliente() {
 	    return cliente;

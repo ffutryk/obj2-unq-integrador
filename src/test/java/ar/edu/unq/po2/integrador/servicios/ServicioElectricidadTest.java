@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import ar.edu.unq.po2.integrador.OrdenExportacion;
 import ar.edu.unq.po2.integrador.Orden;
 import ar.edu.unq.po2.integrador.containers.Refeer;
@@ -29,7 +29,7 @@ public class ServicioElectricidadTest {
         when(container.esRefeer()).thenReturn(true);
         when(container.getConsumoKwHora()).thenReturn(2.0);
         when(ordenE.diasDeServicio()).thenReturn(5.0);
-        ordenE.registrarIngreso(LocalDate.of(2024, 11, 5));
+        ordenE.registrarIngreso(LocalDateTime.of(2024, 11, 5, 8, 0));
         double importe = servicioE.importePara(container, ordenE);
         assertEquals(2400.0, importe);
         verify(container).esRefeer();
@@ -49,7 +49,7 @@ public class ServicioElectricidadTest {
 
     @Test
     void testObtenerDesgloseCreaDesgloseCorrectamente() {
-        LocalDate fecha = LocalDate.of(2025, 11, 10);
+        LocalDateTime fecha = LocalDateTime.of(2025, 11, 10, 8, 0);
         when(container.esRefeer()).thenReturn(true);
         when(container.getConsumoKwHora()).thenReturn(1.0);
         when(ordenE.diasDeServicio()).thenReturn(1.0);
