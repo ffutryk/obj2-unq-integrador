@@ -85,4 +85,12 @@ public class Viaje {
 	public Terminal getGestionada() {
 		return this.gestionada;
 	}
+
+	public boolean estaHabilitadoParaExportacion() {
+		return this.fase.estaHabilitadaParaExportacion();
+	}
+
+	public boolean estaHabilitadoParaImportacion() {
+		return this.fase.estaHabilitadaParaImportacion();
+	}
 }
