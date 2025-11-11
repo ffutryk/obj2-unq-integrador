@@ -4,7 +4,7 @@ import ar.edu.unq.po2.integrador.bl.IBillOfLanding;
 
 public class Tanque extends Container{
 
-	public Tanque(String id, double peso, double alto, double ancho, double profundidad, IBillOfLanding bl) {
+	public Tanque(String id, double alto, double ancho, double profundidad,  double peso, IBillOfLanding bl) {
 		super(id, ancho, alto, profundidad, peso, bl);
 	}
 

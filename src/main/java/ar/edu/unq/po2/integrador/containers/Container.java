@@ -28,7 +28,7 @@ public abstract class Container {
 	}
 	
 	public boolean superaVolumen(double dimension) {
-		return volumen() < dimension;
+		return volumen() > dimension;
 	}
 	
 	public IBillOfLanding getBL() {

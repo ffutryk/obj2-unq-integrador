@@ -10,52 +10,62 @@ import ar.edu.unq.po2.integrador.OrdenImportacion;
 import ar.edu.unq.po2.integrador.Orden;
 import ar.edu.unq.po2.integrador.containers.Tanque;
 import ar.edu.unq.po2.integrador.containers.Container;
-import ar.edu.unq.po2.integrador.containers.Refeer;
 
 public class ServicioAlmacenamientoExcedenteTest {
 	
 	private ServicioAlmacenamientoExcedente servicioAE;
     private Container container;
-    private OrdenExportacion ordenE;
+    private Orden ordenI;
     
     @BeforeEach
     void setUp() {
     	servicioAE = new ServicioAlmacenamientoExcedente(100.0);
         container = mock(Tanque.class);
-        ordenE = mock(OrdenExportacion.class);
+        ordenI = mock(OrdenImportacion.class);
     }
 
     @Test
     void testImporteParaOrdenImportacion() {
-        when(ordenE.esDeImportacion()).thenReturn(true);
-        when(ordenE.diasDeServicio()).thenReturn(3.0);
-        double importe = servicioAE.importePara(container, ordenE);
+        when(ordenI.esDeImportacion()).thenReturn(true);
+        when(ordenI.diasDeServicio()).thenReturn(3.0);
+        double importe = servicioAE.importePara(container, ordenI);
         assertEquals(200.0, importe);
-        verify(ordenE).esDeImportacion();
-        verify(ordenE).diasDeServicio();
+        verify(ordenI).esDeImportacion();
+        verify(ordenI).diasDeServicio();
+    }
+    
+    @Test
+    void testNoCobraCuandoDiasSonNegativos() {
+        when(ordenI.esDeImportacion()).thenReturn(true);
+        when(ordenI.diasDeServicio()).thenReturn(0.0);
+        double importe = servicioAE.importePara(container, ordenI);
+        assertEquals(0, importe);
+        verify(ordenI).esDeImportacion();
+        verify(ordenI).diasDeServicio();
     }
     
     @Test
     void testImporteParaOrdenNoImportacionDevuelveCero() {
     	Container container2 = mock(Tanque.class);
-    	Orden ordenI = mock(OrdenImportacion.class);
-        when(ordenI.esDeImportacion()).thenReturn(false);
-        double importe = servicioAE.importePara(container2, ordenI);
+    	Orden ordenE = mock(OrdenExportacion.class);
+        when(ordenE.esDeImportacion()).thenReturn(false);
+        double importe = servicioAE.importePara(container2, ordenE);
         assertEquals(0.0, importe);
-        verify(ordenI).esDeImportacion();
+        verify(ordenE).esDeImportacion();
     }
     
     @Test
     void testObtenerDesgloseCreaDesgloseCorrectamente() {
         LocalDate fechaFacturacion = LocalDate.of(2025, 11, 15);
-        when(ordenE.esDeImportacion()).thenReturn(true);
-        when(ordenE.diasDeServicio()).thenReturn(2.0);
-        when(ordenE.getFechaDeFacturacion()).thenReturn(fechaFacturacion);
-        DesgloseDeServicio desglose = servicioAE.obtenerDesglose(container, ordenE);
+        when(ordenI.esDeImportacion()).thenReturn(true);
+        when(ordenI.diasDeServicio()).thenReturn(2.0);
+        when(ordenI.getFechaDeFacturacion()).thenReturn(fechaFacturacion);
+        DesgloseDeServicio desglose = servicioAE.obtenerDesglose(container, ordenI);
         assertEquals("ServicioAlmacenamientoExcedente", desglose.getNombre());
         assertEquals(fechaFacturacion, desglose.getFecha());
         assertEquals(100.0, desglose.getCosto());
-        verify(ordenE).getFechaDeFacturacion();
-        verify(ordenE).diasDeServicio();
+        verify(ordenI).getFechaDeFacturacion();
+        verify(ordenI).diasDeServicio();
     }
+    
 }

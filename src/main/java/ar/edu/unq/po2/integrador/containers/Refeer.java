@@ -6,7 +6,7 @@ public class Refeer extends Container{
 	
 	private double consumoKwHora;
 
-	public Refeer(String id, double peso, double alto, double ancho, double profundidad, IBillOfLanding bl, double consumoKwHora) {
+	public Refeer(String id, double alto, double ancho, double profundidad, double peso, IBillOfLanding bl, double consumoKwHora) {
 		super(id, ancho, alto, profundidad, peso, bl);
 		this.consumoKwHora = consumoKwHora;
 	}

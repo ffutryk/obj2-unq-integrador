@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import ar.edu.unq.po2.integrador.containers.Container;
 import ar.edu.unq.po2.integrador.servicios.DesgloseDeServicio;
 import ar.edu.unq.po2.integrador.servicios.Servicio;
+import ar.edu.unq.po2.integrador.fases.Viaje;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
