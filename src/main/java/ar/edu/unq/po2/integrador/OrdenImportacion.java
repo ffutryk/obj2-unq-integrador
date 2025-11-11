@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 
 import ar.edu.unq.po2.integrador.containers.Container;
 import ar.edu.unq.po2.integrador.fases.Viaje;
+import ar.edu.unq.po2.integrador.reportes.VisitanteReportable;
 
 public class OrdenImportacion extends Orden {
 
@@ -31,5 +32,9 @@ public class OrdenImportacion extends Orden {
 	public LocalDate getFechaDeFacturacion() {
 		return fechaRetiro;
 	}
-	 
+	
+	@Override
+	public void aceptar(VisitanteReportable visitante) {
+		visitante.visitar(this);
+	}
 }

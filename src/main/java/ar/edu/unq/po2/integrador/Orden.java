@@ -6,11 +6,12 @@ import ar.edu.unq.po2.integrador.containers.Container;
 import ar.edu.unq.po2.integrador.servicios.DesgloseDeServicio;
 import ar.edu.unq.po2.integrador.servicios.Servicio;
 import ar.edu.unq.po2.integrador.fases.Viaje;
+import ar.edu.unq.po2.integrador.reportes.IReportable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class Orden {
+public abstract class Orden implements IReportable {
 	
 	private Container container;
 	private Cliente cliente;

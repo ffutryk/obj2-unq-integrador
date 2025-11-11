@@ -1,8 +1,10 @@
 package ar.edu.unq.po2.integrador;
 
 import ar.edu.unq.po2.integrador.fases.Viaje;
+import ar.edu.unq.po2.integrador.reportes.IReportable;
+import ar.edu.unq.po2.integrador.reportes.VisitanteReportable;
 
-public class Buque {
+public class Buque implements IReportable {
 	private String nombre;
 	private IGPS gps;
 	private PosicionGeografica pos;
@@ -40,4 +42,10 @@ public class Buque {
 	public String nombre() {
 		return nombre;
 	}
+
+	@Override
+	public void aceptar(VisitanteReportable visitante) {
+		visitante.visitar(this);
+	}
+
 }
