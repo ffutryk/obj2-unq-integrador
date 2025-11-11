@@ -4,12 +4,9 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD
 import ar.edu.unq.po2.integrador.containers.Container;
 import ar.edu.unq.po2.integrador.servicios.Servicio;
-=======
 import ar.edu.unq.po2.integrador.fases.Viaje;
->>>>>>> 10887dc20449e5958b81b4b19a48e044ba4ac2d1
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

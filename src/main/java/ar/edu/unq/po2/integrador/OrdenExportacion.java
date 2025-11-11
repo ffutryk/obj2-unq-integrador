@@ -3,11 +3,8 @@ package ar.edu.unq.po2.integrador;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-<<<<<<< HEAD
 import ar.edu.unq.po2.integrador.containers.Container;
-=======
 import ar.edu.unq.po2.integrador.fases.Viaje;
->>>>>>> 10887dc20449e5958b81b4b19a48e044ba4ac2d1
 
 public class OrdenExportacion extends Orden {
 
