@@ -13,7 +13,7 @@ class BuqueTest {
 	void testUnBuqueSabeResponderSuUbicacionGeografica() {
 		IGPS gps = spy(IGPS.class);
 		PosicionGeografica pos = mock(PosicionGeografica.class);
-		Buque unBuque = new Buque(gps);
+		Buque unBuque = new Buque(gps, "lorem ipsum");
 		unBuque.actualizarPosicion(pos);
 		assertEquals(pos, unBuque.getPosicion());
 		verify(gps).posicionDe(unBuque);
@@ -23,7 +23,7 @@ class BuqueTest {
 	void testUnBuquePuedeActualizarSuPosicion() {
 		IGPS gps = spy(IGPS.class);
 		PosicionGeografica posInicial = mock(PosicionGeografica.class);
-		Buque unBuque = new Buque(gps);
+		Buque unBuque = new Buque(gps, "lorem ipsum");
 		unBuque.actualizarPosicion(posInicial);
 		PosicionGeografica posNueva = mock(PosicionGeografica.class);
 		when(gps.posicionDe(unBuque)).thenReturn(posNueva);
@@ -38,7 +38,7 @@ class BuqueTest {
 		Viaje unViaje = mock(Viaje.class);
 		IGPS gps = spy(IGPS.class);
 		PosicionGeografica posInicial = mock(PosicionGeografica.class);
-		Buque unBuque = new Buque(gps);
+		Buque unBuque = new Buque(gps, "lorem ipsum");
 		unBuque.asignarViaje(unViaje);
 		
 		unBuque.actualizarPosicion(mock(PosicionGeografica.class));

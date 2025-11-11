@@ -3,12 +3,12 @@ package ar.edu.unq.po2.integrador;
 import ar.edu.unq.po2.integrador.fases.Viaje;
 
 public class Buque {
-	
+	private String nombre;
 	private IGPS gps;
 	private PosicionGeografica pos;
 	private Viaje viaje;
 	
-	public Buque(IGPS unGPS) {
+	public Buque(IGPS unGPS, String nombre) {
 		this.gps = unGPS;
 		this.pos = gps.posicionDe(this);
 		this.viaje = null;
@@ -32,5 +32,12 @@ public class Buque {
 	public void cargaYDescarga() {
 		// No se pide modelar en este trabajo...
 	}
+	
+	public Viaje viaje() {
+		return viaje;
+	}
 
+	public String nombre() {
+		return nombre;
+	}
 }
