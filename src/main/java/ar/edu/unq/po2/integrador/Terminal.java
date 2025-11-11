@@ -50,5 +50,9 @@ public class Terminal {
 		// Este debería implementarlo la terminal gestionada.
 		
 	}
+
+	protected Integer cantidadDeArribados() {
+		return this.arribados.size();
+	}
 	
 }

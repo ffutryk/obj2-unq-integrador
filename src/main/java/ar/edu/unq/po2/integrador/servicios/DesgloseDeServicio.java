@@ -1,14 +1,14 @@
 package ar.edu.unq.po2.integrador.servicios;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class DesgloseDeServicio {
 
 	private String nombre;
-	private LocalDate fecha;
+	private LocalDateTime fecha;
 	private double costo;
 	
-	public DesgloseDeServicio(String nombre, LocalDate fecha, double costo) {
+	public DesgloseDeServicio(String nombre, LocalDateTime fecha, double costo) {
 		this.nombre = nombre;
 		this.fecha = fecha;
 		this.costo = costo;
@@ -18,7 +18,7 @@ public class DesgloseDeServicio {
 		return nombre;
 	}
 
-	public LocalDate getFecha() {
+	public LocalDateTime getFecha() {
 		return fecha;
 	}
 

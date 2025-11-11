@@ -4,9 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import ar.edu.unq.po2.integrador.OrdenImportacion;
-import ar.edu.unq.po2.integrador.Orden;
 import ar.edu.unq.po2.integrador.containers.Tanque;
 import ar.edu.unq.po2.integrador.containers.Container;
 
@@ -41,7 +40,7 @@ public class ServicioLavadoTest {
     
     @Test
     void testObtenerDesgloseCreaCorrectamenteElDesglose() {
-    	LocalDate fecha = LocalDate.of(2025, 11, 10);
+    	LocalDateTime fecha = LocalDateTime.of(2025, 11, 10, 8, 0);
         when(container.superaVolumen(70.0)).thenReturn(true);
         when(ordenI.getTurno()).thenReturn(fecha);
         DesgloseDeServicio desglose = servicioL.obtenerDesglose(container, ordenI);

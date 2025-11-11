@@ -4,12 +4,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import ar.edu.unq.po2.integrador.OrdenExportacion;
 import ar.edu.unq.po2.integrador.OrdenImportacion;
 import ar.edu.unq.po2.integrador.Orden;
 import ar.edu.unq.po2.integrador.containers.Tanque;
 import ar.edu.unq.po2.integrador.containers.Container;
+
 
 public class ServicioAlmacenamientoExcedenteTest {
 	
@@ -56,11 +57,19 @@ public class ServicioAlmacenamientoExcedenteTest {
     
     @Test
     void testObtenerDesgloseCreaDesgloseCorrectamente() {
+<<<<<<< HEAD
         LocalDate fechaFacturacion = LocalDate.of(2025, 11, 15);
         when(ordenI.esDeImportacion()).thenReturn(true);
         when(ordenI.diasDeServicio()).thenReturn(2.0);
         when(ordenI.getFechaDeFacturacion()).thenReturn(fechaFacturacion);
         DesgloseDeServicio desglose = servicioAE.obtenerDesglose(container, ordenI);
+=======
+        LocalDateTime fechaFacturacion = LocalDateTime.of(2025, 11, 15, 8, 0);
+        when(ordenE.esDeImportacion()).thenReturn(true);
+        when(ordenE.diasDeServicio()).thenReturn(2.0);
+        when(ordenE.getFechaDeFacturacion()).thenReturn(fechaFacturacion);
+        DesgloseDeServicio desglose = servicioAE.obtenerDesglose(container, ordenE);
+>>>>>>> 035b54cc974f2fe3bfedf766e18a515161747f41
         assertEquals("ServicioAlmacenamientoExcedente", desglose.getNombre());
         assertEquals(fechaFacturacion, desglose.getFecha());
         assertEquals(100.0, desglose.getCosto());

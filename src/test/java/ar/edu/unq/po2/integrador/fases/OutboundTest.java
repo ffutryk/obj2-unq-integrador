@@ -1,5 +1,6 @@
 package ar.edu.unq.po2.integrador.fases;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -40,6 +41,16 @@ class OutboundTest {
 	void testLaFaseNoRealizaNingunaAccionConElViajeCorrespondiente() {
 		faseOutbound.realizarAccionPara(viajeCorrespondiente);
 		verifyNoInteractions(viajeCorrespondiente);
+	}
+	
+	@Test
+	void testLaFaseEstaHabilitadaParaExportacion() {
+		assertTrue(faseOutbound.estaHabilitadaParaExportacion());
+	}
+	
+	@Test
+	void testLaFaseEstaHabilitadaParaImportacion() {
+		assertTrue(faseOutbound.estaHabilitadaParaImportacion());
 	}
 
 }
