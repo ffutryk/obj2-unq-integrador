@@ -8,4 +8,8 @@ public class Tanque extends Container{
 		super(id, ancho, alto, profundidad, peso, bl);
 	}
 
+	@Override
+	public TipoContainer getTipo() {
+		return TipoContainer.TANQUE;
+	}
 }

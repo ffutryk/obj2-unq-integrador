@@ -20,4 +20,9 @@ public class Refeer extends Container{
 	public boolean esRefeer() {
 		return true;
 	}
+	
+	@Override
+	public TipoContainer getTipo() {
+		return TipoContainer.REFEER;
+	}
 }

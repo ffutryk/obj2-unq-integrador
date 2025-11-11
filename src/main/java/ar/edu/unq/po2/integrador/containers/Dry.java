@@ -7,4 +7,9 @@ public class Dry extends Container {
 	public Dry(String id, double alto, double ancho, double profundidad, double peso, IBillOfLanding bl) {
 		super(id, ancho, alto, profundidad, peso, bl);
 	}
+
+	@Override
+	public TipoContainer getTipo() {
+		return TipoContainer.DRY;
+	}
 }

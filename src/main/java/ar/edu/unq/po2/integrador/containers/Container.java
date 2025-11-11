@@ -58,5 +58,6 @@ public abstract class Container {
 	public double getConsumoKwHora() {
 		return 0;
 	}
-
+	
+	abstract public TipoContainer getTipo();
 }
