@@ -2,8 +2,9 @@ package ar.edu.unq.po2.integrador;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import ar.edu.unq.po2.integrador.ordenes.Orden;
 import ar.edu.unq.po2.integrador.servicios.DesgloseDeServicio;
-import ar.edu.unq.po2.ordenes.Orden;
 
 public class Factura {
 

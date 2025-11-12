@@ -3,7 +3,7 @@ package ar.edu.unq.po2.integrador.servicios;
 import java.time.LocalDate;
 
 import ar.edu.unq.po2.integrador.containers.Container;
-import ar.edu.unq.po2.ordenes.Orden;
+import ar.edu.unq.po2.integrador.ordenes.Orden;
 
 public class ServicioElectricidad implements Servicio{
 

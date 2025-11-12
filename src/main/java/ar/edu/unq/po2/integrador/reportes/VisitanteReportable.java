@@ -5,9 +5,9 @@ import java.util.stream.Collectors;
 
 import ar.edu.unq.po2.integrador.Buque;
 import ar.edu.unq.po2.integrador.fases.Viaje;
-import ar.edu.unq.po2.ordenes.Orden;
-import ar.edu.unq.po2.ordenes.OrdenExportacion;
-import ar.edu.unq.po2.ordenes.OrdenImportacion;
+import ar.edu.unq.po2.integrador.ordenes.Orden;
+import ar.edu.unq.po2.integrador.ordenes.OrdenExportacion;
+import ar.edu.unq.po2.integrador.ordenes.OrdenImportacion;
 
 public abstract class VisitanteReportable {
 	public abstract void visitar(Buque buque);

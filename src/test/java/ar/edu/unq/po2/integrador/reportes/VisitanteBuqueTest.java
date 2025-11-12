@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.integrador.Buque;
 import ar.edu.unq.po2.integrador.containers.Container;
-import ar.edu.unq.po2.ordenes.OrdenExportacion;
-import ar.edu.unq.po2.ordenes.OrdenImportacion;
+import ar.edu.unq.po2.integrador.ordenes.OrdenExportacion;
+import ar.edu.unq.po2.integrador.ordenes.OrdenImportacion;
 
 class VisitanteBuqueTest {
 

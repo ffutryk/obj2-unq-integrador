@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 
 import ar.edu.unq.po2.integrador.containers.Refeer;
 import ar.edu.unq.po2.integrador.containers.Tanque;
-import ar.edu.unq.po2.ordenes.Orden;
-import ar.edu.unq.po2.ordenes.OrdenExportacion;
+import ar.edu.unq.po2.integrador.ordenes.Orden;
+import ar.edu.unq.po2.integrador.ordenes.OrdenExportacion;
 import ar.edu.unq.po2.integrador.containers.Container;
 
 public class ServicioElectricidadTest {

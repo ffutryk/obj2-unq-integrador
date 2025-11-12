@@ -13,10 +13,10 @@ import ar.edu.unq.po2.integrador.email.Email;
 import ar.edu.unq.po2.integrador.email.IEmailService;
 import ar.edu.unq.po2.integrador.fases.Viaje;
 import ar.edu.unq.po2.integrador.filtros.criterios.FiltroPorDestino;
+import ar.edu.unq.po2.integrador.ordenes.Orden;
+import ar.edu.unq.po2.integrador.ordenes.OrdenExportacion;
+import ar.edu.unq.po2.integrador.ordenes.OrdenImportacion;
 import ar.edu.unq.po2.integrador.servicios.Servicio;
-import ar.edu.unq.po2.ordenes.Orden;
-import ar.edu.unq.po2.ordenes.OrdenExportacion;
-import ar.edu.unq.po2.ordenes.OrdenImportacion;
 
 public class TerminalGestionada extends Terminal implements ICircuitosProveedor, IViajesProveedor{
 

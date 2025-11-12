@@ -9,10 +9,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import ar.edu.unq.po2.integrador.fases.Viaje;
+import ar.edu.unq.po2.integrador.ordenes.Orden;
+import ar.edu.unq.po2.integrador.ordenes.OrdenExportacion;
+import ar.edu.unq.po2.integrador.ordenes.OrdenImportacion;
 import ar.edu.unq.po2.integrador.servicios.DesgloseDeServicio;
-import ar.edu.unq.po2.ordenes.Orden;
-import ar.edu.unq.po2.ordenes.OrdenExportacion;
-import ar.edu.unq.po2.ordenes.OrdenImportacion;
 
 
 public class FacturaTest {
@@ -79,4 +79,14 @@ public class FacturaTest {
         double esperado = 200 + 300;
         assertEquals(esperado, factura2.montoTotalFacturado());
     }
+	
+	@Test
+	void testImprimirGeneraTextoCorrecto() {
+	    String resultado = factura.imprimir();
+	    assertTrue(resultado.startsWith("\tServicio\tFecha\tCosto\n"));
+	    assertTrue(resultado.contains("ServicioLavado"));
+	    assertTrue(resultado.contains("ServicioElectricidad"));
+	    assertTrue(resultado.contains("200.0"));
+	    assertTrue(resultado.contains("300.0"));
+	}
 }

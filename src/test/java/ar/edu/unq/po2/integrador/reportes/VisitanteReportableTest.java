@@ -10,9 +10,9 @@ import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.integrador.Buque;
 import ar.edu.unq.po2.integrador.fases.Viaje;
-import ar.edu.unq.po2.ordenes.Orden;
-import ar.edu.unq.po2.ordenes.OrdenExportacion;
-import ar.edu.unq.po2.ordenes.OrdenImportacion;
+import ar.edu.unq.po2.integrador.ordenes.Orden;
+import ar.edu.unq.po2.integrador.ordenes.OrdenExportacion;
+import ar.edu.unq.po2.integrador.ordenes.OrdenImportacion;
 
 class VisitanteReportableTest {
     static class VisitanteDummy extends VisitanteReportable {

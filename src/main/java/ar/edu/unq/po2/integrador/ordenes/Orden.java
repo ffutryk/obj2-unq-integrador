@@ -1,4 +1,4 @@
-package ar.edu.unq.po2.ordenes;
+package ar.edu.unq.po2.integrador.ordenes;
 
 import java.util.List;
 

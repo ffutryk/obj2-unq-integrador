@@ -1,4 +1,4 @@
-package ar.edu.unq.po2.ordenes;
+package ar.edu.unq.po2.integrador.ordenes;
 
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,7 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.integrador.Cliente;
 import ar.edu.unq.po2.integrador.containers.Container;
+import ar.edu.unq.po2.integrador.email.Email;
+import ar.edu.unq.po2.integrador.email.IEmailService;
 import ar.edu.unq.po2.integrador.fases.Viaje;
+import ar.edu.unq.po2.integrador.ordenes.OrdenImportacion;
+import ar.edu.unq.po2.integrador.reportes.VisitanteReportable;
 import ar.edu.unq.po2.integrador.servicios.DesgloseDeServicio;
 import ar.edu.unq.po2.integrador.servicios.Servicio;
 import ar.edu.unq.po2.integrador.fases.Viaje;
@@ -100,5 +104,21 @@ public class OrdenImportacionTest {
         assertEquals(120.0, orden.totalServicios());
         verify(servicio1).obtenerDesglose(container, orden);
         verify(servicio2).obtenerDesglose(container, orden);
+    }
+    
+    @Test
+    void testEnviarMailCreaYEnvíaUnEmailConDatosCorrectos() {
+        IEmailService emailService = mock(IEmailService.class);
+        when(container.getId()).thenReturn("CONT-999");
+        when(cliente.getDirecciomMail()).thenReturn("cliente@test.com");
+        orden.enviarMail(emailService);
+        verify(emailService).mandarEmail(any(Email.class));
+    }
+    
+    @Test
+    void testAceptarLlamaAlVisitanteConLaOrden() {
+        VisitanteReportable visitante = mock(VisitanteReportable.class);
+        orden.aceptar(visitante);
+        verify(visitante).visitar(orden);
     }
 }

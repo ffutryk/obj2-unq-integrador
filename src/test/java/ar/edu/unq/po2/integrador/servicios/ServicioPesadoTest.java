@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDateTime;
 
 import ar.edu.unq.po2.integrador.containers.Tanque;
-import ar.edu.unq.po2.ordenes.Orden;
-import ar.edu.unq.po2.ordenes.OrdenImportacion;
+import ar.edu.unq.po2.integrador.ordenes.Orden;
+import ar.edu.unq.po2.integrador.ordenes.OrdenImportacion;
 import ar.edu.unq.po2.integrador.containers.Container;
 
 public class ServicioPesadoTest {

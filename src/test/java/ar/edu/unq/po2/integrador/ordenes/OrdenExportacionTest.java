@@ -1,4 +1,4 @@
-package ar.edu.unq.po2.ordenes;
+package ar.edu.unq.po2.integrador.ordenes;
 
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,10 +6,15 @@ import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.integrador.Cliente;
 import ar.edu.unq.po2.integrador.containers.Container;
+import ar.edu.unq.po2.integrador.email.Email;
+import ar.edu.unq.po2.integrador.email.IEmailService;
 import ar.edu.unq.po2.integrador.servicios.Servicio;
 import ar.edu.unq.po2.integrador.fases.Viaje;
+import ar.edu.unq.po2.integrador.ordenes.OrdenExportacion;
+import ar.edu.unq.po2.integrador.reportes.VisitanteReportable;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 public class OrdenExportacionTest {
@@ -50,6 +55,13 @@ public class OrdenExportacionTest {
     }
     
     @Test
+    public void testGettersBasicos() {
+        assertEquals(container, orden.getContainer());
+        assertEquals(cliente, orden.getCliente());
+        assertEquals(viaje, orden.getViaje());
+    }
+    
+    @Test
     void testDiasDeServicioConIngreso() {
         orden.registrarIngreso(LocalDateTime.of(2025, 11, 6, 8, 0));
         assertEquals(5, orden.diasDeServicio());
@@ -65,6 +77,32 @@ public class OrdenExportacionTest {
     @Test
     void testGetTurnoDevuelveFechaSalida() {
         assertEquals(fechaSalida, orden.getTurno());
+    }
+    
+    @Test
+    void testEnviarMailEnviaCorreoCorrectamente() {
+        IEmailService emailService = mock(IEmailService.class);
+        when(container.getId()).thenReturn("CONT-001");
+        when(cliente.getDirecciomMail()).thenReturn("cliente@mail.com");
+        orden.enviarMail(emailService);
+        verify(emailService).mandarEmail(any(Email.class));
+    }
+    
+    @Test
+    void testAceptarLlamaAlVisitante() {
+        VisitanteReportable visitante = mock(VisitanteReportable.class);
+        orden.aceptar(visitante);
+        verify(visitante).visitar(orden);
+    }
+    
+    @Test
+    void testEnviarFacturaCreaYEnviaFacturaPorMail() {
+        IEmailService emailService = mock(IEmailService.class);
+        when(container.getId()).thenReturn("CONT-001");
+        when(cliente.getDirecciomMail()).thenReturn("cliente@mail.com");
+        when(cliente.getOrden()).thenReturn(orden);
+        orden.enviarFactura(emailService);
+        verify(emailService).mandarEmail(any(Email.class));
     }
 
 }

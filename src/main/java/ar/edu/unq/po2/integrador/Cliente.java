@@ -1,6 +1,6 @@
 package ar.edu.unq.po2.integrador;
 
-import ar.edu.unq.po2.ordenes.Orden;
+import ar.edu.unq.po2.integrador.ordenes.Orden;
 
 public class Cliente {
 	
