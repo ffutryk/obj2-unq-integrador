@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.unq.po2.integrador.Buque;
-import ar.edu.unq.po2.integrador.OrdenExportacion;
-import ar.edu.unq.po2.integrador.OrdenImportacion;
+import ar.edu.unq.po2.ordenes.OrdenExportacion;
+import ar.edu.unq.po2.ordenes.OrdenImportacion;
 
 public class VisitanteBuque extends VisitanteReportable {
 	private List<String> idsImportacion = new ArrayList<>();

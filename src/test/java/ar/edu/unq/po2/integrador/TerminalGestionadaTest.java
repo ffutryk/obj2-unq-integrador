@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import ar.edu.unq.po2.integrador.containers.Container;
 import ar.edu.unq.po2.integrador.fases.Viaje;
 import ar.edu.unq.po2.integrador.servicios.Servicio;
+import ar.edu.unq.po2.ordenes.Orden;
 
 class TerminalGestionadaTest {
 	

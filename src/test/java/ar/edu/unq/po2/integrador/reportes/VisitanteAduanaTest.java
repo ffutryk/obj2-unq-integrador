@@ -9,11 +9,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.integrador.Buque;
-import ar.edu.unq.po2.integrador.OrdenExportacion;
-import ar.edu.unq.po2.integrador.OrdenImportacion;
 import ar.edu.unq.po2.integrador.containers.Container;
 import ar.edu.unq.po2.integrador.containers.TipoContainer;
 import ar.edu.unq.po2.integrador.fases.Viaje;
+import ar.edu.unq.po2.ordenes.OrdenExportacion;
+import ar.edu.unq.po2.ordenes.OrdenImportacion;
 
 class VisitanteAduanaTest {
 

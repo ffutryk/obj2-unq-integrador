@@ -8,6 +8,9 @@ import java.util.List;
 import ar.edu.unq.po2.integrador.containers.Container;
 import ar.edu.unq.po2.integrador.fases.Viaje;
 import ar.edu.unq.po2.integrador.servicios.Servicio;
+import ar.edu.unq.po2.ordenes.Orden;
+import ar.edu.unq.po2.ordenes.OrdenExportacion;
+import ar.edu.unq.po2.ordenes.OrdenImportacion;
 
 public class TerminalGestionada extends Terminal {
 

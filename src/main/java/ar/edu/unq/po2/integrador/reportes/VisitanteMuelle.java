@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import ar.edu.unq.po2.integrador.Buque;
-import ar.edu.unq.po2.integrador.OrdenExportacion;
-import ar.edu.unq.po2.integrador.OrdenImportacion;
 import ar.edu.unq.po2.integrador.fases.Viaje;
+import ar.edu.unq.po2.ordenes.OrdenExportacion;
+import ar.edu.unq.po2.ordenes.OrdenImportacion;
 
 public class VisitanteMuelle extends VisitanteReportable {
     private String nombreBuque;

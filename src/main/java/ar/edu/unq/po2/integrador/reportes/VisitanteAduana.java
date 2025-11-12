@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.unq.po2.integrador.Buque;
-import ar.edu.unq.po2.integrador.OrdenExportacion;
-import ar.edu.unq.po2.integrador.OrdenImportacion;
 import ar.edu.unq.po2.integrador.containers.Container;
 import ar.edu.unq.po2.integrador.fases.Viaje;
+import ar.edu.unq.po2.ordenes.OrdenExportacion;
+import ar.edu.unq.po2.ordenes.OrdenImportacion;
 
 
 public class VisitanteAduana extends VisitanteReportable {

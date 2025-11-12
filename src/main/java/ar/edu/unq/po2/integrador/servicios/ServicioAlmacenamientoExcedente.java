@@ -2,8 +2,8 @@ package ar.edu.unq.po2.integrador.servicios;
 
 import java.time.LocalDate;
 
-import ar.edu.unq.po2.integrador.Orden;
 import ar.edu.unq.po2.integrador.containers.Container;
+import ar.edu.unq.po2.ordenes.Orden;
 
 public class ServicioAlmacenamientoExcedente implements Servicio{
 
