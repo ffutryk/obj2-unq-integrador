@@ -9,7 +9,7 @@ public class Terminal {
 	
 	private String nombre;
 	private PosicionGeografica ubicacion;
-	private List<Viaje> arribados;
+	protected List<Viaje> arribados;
 
 	public Terminal(String nombre, PosicionGeografica pos) {
 		this.nombre = nombre;
@@ -35,20 +35,6 @@ public class Terminal {
 
 	public void registrarArribo(Viaje unViaje) {
 		this.arribados.add(unViaje);
-	}
-
-	public void anunciarPartida(Viaje unViaje) {
-		// Este debería implementarlo la terminal gestionada.
-	}
-	
-
-	public void anunciarInminenteLlegada(Viaje unViaje) {
-		// Este debería implementarlo la terminal gestionada.
-	}
-
-	public void enviarFacturasPara(Viaje unViaje) {
-		// Este debería implementarlo la terminal gestionada.
-		
 	}
 
 	protected Integer cantidadDeArribados() {

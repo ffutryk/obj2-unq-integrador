@@ -1,28 +1,40 @@
 package ar.edu.unq.po2.integrador;
 
-
-
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.edu.unq.po2.integrador.busqueda.ICircuitosProveedor;
+import ar.edu.unq.po2.integrador.busqueda.IViajesProveedor;
+import ar.edu.unq.po2.integrador.busqueda.MotorDeBusqueda;
 import ar.edu.unq.po2.integrador.containers.Container;
+import ar.edu.unq.po2.integrador.email.Email;
+import ar.edu.unq.po2.integrador.email.IEmailService;
 import ar.edu.unq.po2.integrador.fases.Viaje;
+import ar.edu.unq.po2.integrador.filtros.criterios.FiltroPorDestino;
 import ar.edu.unq.po2.integrador.servicios.Servicio;
 import ar.edu.unq.po2.ordenes.Orden;
 import ar.edu.unq.po2.ordenes.OrdenExportacion;
 import ar.edu.unq.po2.ordenes.OrdenImportacion;
 
-public class TerminalGestionada extends Terminal {
+public class TerminalGestionada extends Terminal implements ICircuitosProveedor, IViajesProveedor{
 
 	private List<Orden> ordenes;
 	private List<Naviera> navieras;
 	private List<Cliente> clientes;
+	private List<EmpresaTransportista> empresasTransportistas;
+	private MotorDeBusqueda motorDeBusqueda;
+	private IEmailService emailService;
 
-	public TerminalGestionada(String unNombre, PosicionGeografica unaPosicionGeografica) {
+	public TerminalGestionada(String unNombre, PosicionGeografica unaPosicionGeografica, IEmailService servicioEmail) {
 		super(unNombre, unaPosicionGeografica);
 		this.ordenes = new ArrayList<Orden>(); 
 		this.navieras = new ArrayList<Naviera>();
 		this.clientes = new ArrayList<Cliente>();
+		this.motorDeBusqueda = new MotorDeBusqueda(this, this, null);
+		this.empresasTransportistas = new ArrayList<EmpresaTransportista>();
+		this.emailService = servicioEmail;
 	}
 
 	public Orden exportar(Viaje unViaje, Container unContainer, Camion unCamion, Chofer unChofer, Cliente unCliente) {
@@ -33,6 +45,7 @@ public class TerminalGestionada extends Terminal {
 		this.ordenes.add(orden);
 		return orden;
 	}
+	
 
 	protected Integer cantidadDeOrdenes() { // Creo que sería protected no public, para que solo sea enviado por el Test...
 		return this.ordenes.size();
@@ -65,5 +78,91 @@ public class TerminalGestionada extends Terminal {
 
 	protected Integer cantidadDeClientes() {
 		return this.clientes.size();
+	}
+	
+	public void registrarEmpresaTransportista(EmpresaTransportista empresa) {
+		this.empresasTransportistas.add(empresa);
+	}
+
+	@Override
+	public List<Circuito> circuitosDisponibles() {
+		List<Circuito> circuitos = new ArrayList<Circuito>();
+		for(Naviera n : navieras) {
+			circuitos.addAll(n.getCircuitos());
+		}
+		return circuitos;
+	}
+
+	@Override
+	public List<Viaje> viajesDisponibles() {
+		List<Viaje> viajes = new ArrayList<Viaje>();
+		for(Naviera n : navieras) {
+			viajes.addAll(n.getViajes());
+		}
+		return viajes;
+	}
+	
+	public Circuito mejorCircuitoHacia(Terminal unaTerminal) {
+		return this.motorDeBusqueda.mejorCircuitoHacia(unaTerminal);
+	}
+
+	protected Integer cantidadDeEmpresasTransportistas() {
+		return this.empresasTransportistas.size();
+	}
+	
+
+	public void anunciarInminenteLlegada(Viaje unViaje) { // Este mensaje es enviado por la fase Inbound...
+		this.mandarMail(unViaje);
+	}
+
+	private void mandarMail(Viaje unViaje) {
+		this.ordenes.stream().filter(orden -> orden.getViaje().equals(unViaje)).forEach(orden -> orden.enviarMail(this.emailService));
+	}
+	
+	public void anunciarPartida(Viaje unViaje) {
+		this.arribados.remove(unViaje); 
+		this.mandarMail(unViaje);
+		this.enviarFacturasPara(unViaje);  
+	}
+	
+	private void enviarFacturasPara(Viaje unViaje) {
+		this.ordenes.stream().filter(orden -> orden.getViaje().equals(unViaje)).forEach(orden -> orden.enviarFactura(this.emailService));
+	}
+	
+	public Duration tiempoDeViajePorA(Naviera unaNaviera, Terminal unaTerminal) {
+		asertarNavieraIncluida(unaNaviera);
+		asertarTerminalIncluidaEnCircuitoDe(unaNaviera, unaTerminal);
+		return unaNaviera.getCircuitos().stream()
+		        .filter(circuito -> circuito.incluyeLaTerminal(unaTerminal))
+		        .map(circuito -> circuito.duracionHasta(unaTerminal))
+		        .min(Duration::compareTo).get();
+	}
+
+	private void asertarTerminalIncluidaEnCircuitoDe(Naviera unaNaviera, Terminal unaTerminal) {
+		List<Circuito> circuitosNaviera = unaNaviera.getCircuitos();
+		if(!circuitosNaviera.stream().anyMatch(circuito -> circuito.incluyeLaTerminal(unaTerminal))) {
+			throw new RuntimeException("La terminal no pertenece a ningún circuito de la naviera dada...");
+		}
+		
+	}
+
+	private void asertarNavieraIncluida(Naviera unaNaviera) {
+		if(!navieras.contains(unaNaviera)) {
+			throw new RuntimeException("La naviera no está registrada en la terminal...");
+		}
+	}
+	
+	public LocalDateTime proximaFechaDePartidaHasta(Terminal unDestino) {
+		asertarDestinoIncluidoEnViajes(unDestino);
+		return this.motorDeBusqueda.buscarViajes(new FiltroPorDestino(unDestino)).stream()
+				.map(viaje -> viaje.fechaDeArriboA(this)) 
+				.min( (date1, date2) -> date1.compareTo(date2)) 
+				.get();
+	}
+
+	private void asertarDestinoIncluidoEnViajes(Terminal unDestino) {
+		if(!this.viajesDisponibles().stream().anyMatch(viaje -> viaje.pasaPorLaTerminal(unDestino))) {
+			throw new RuntimeException("El destino no es alcanzado por ninguno de los viajes disponibles...");
+		}
 	}
 }

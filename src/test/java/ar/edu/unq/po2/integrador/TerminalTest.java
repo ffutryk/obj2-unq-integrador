@@ -39,37 +39,4 @@ class TerminalTest {
 		unaTerminal.registrarArribo(mock(Viaje.class));
 		assertEquals(1, unaTerminal.cantidadDeArribados());
 	}
-	
-	@Test
-	void testUnaTerminalGenericaNoAnunciaPartidaDeUnViaje() {
-		PosicionGeografica pos = mock(PosicionGeografica.class);
-		Terminal unaTerminal = new Terminal("Terminal BsAs", pos);
-		Viaje unViaje = mock(Viaje.class);
-		
-		unaTerminal.anunciarPartida(unViaje);
-		
-		verifyNoInteractions(unViaje);
-	}
-	
-	@Test
-	void testUnaTerminalGenericaNoAnunciaLaLlegadaDeUnViaje() {
-		PosicionGeografica pos = mock(PosicionGeografica.class);
-		Terminal unaTerminal = new Terminal("Terminal BsAs", pos);
-		Viaje unViaje = mock(Viaje.class);
-		
-		unaTerminal.anunciarInminenteLlegada(unViaje);
-		
-		verifyNoInteractions(unViaje);
-	}
-	
-	@Test
-	void testUnaTerminalGenericaNoEnviaFacturasDeUnViaje() {
-		PosicionGeografica pos = mock(PosicionGeografica.class);
-		Terminal unaTerminal = new Terminal("Terminal BsAs", pos);
-		Viaje unViaje = mock(Viaje.class);
-		
-		unaTerminal.enviarFacturasPara(unViaje);
-		
-		verifyNoInteractions(unViaje);
-	}
 }

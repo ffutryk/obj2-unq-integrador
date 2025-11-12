@@ -36,4 +36,12 @@ public class Factura {
 	public Cliente getCliente() {
 		return cliente;
 	}
+
+	public String imprimir() {
+		StringBuilder facturaImpresa = new StringBuilder();
+		List<DesgloseDeServicio> desgloses = this.desgloseDeServicios();
+		facturaImpresa.append("\tServicio\tFecha\tCosto\n");
+		desgloses.stream().forEach(desglose -> facturaImpresa.append(desglose.imprimir()));
+		return facturaImpresa.toString();
+	}
 }

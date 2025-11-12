@@ -3,9 +3,9 @@ package ar.edu.unq.po2.integrador;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,9 +19,9 @@ class NavieraTest {
 	Circuito circuito2;
 	Circuito circuito3;
 	Buque buque;
-	Set<Circuito> circuitos;
+	List<Circuito> circuitos;
 	Viaje viaje;
-	Set<Viaje> viajes;
+	List<Viaje> viajes;
 	
 	@BeforeEach
 	void setUp() {
@@ -29,12 +29,12 @@ class NavieraTest {
 		circuito2 = mock(Circuito.class);
 		circuito3 = mock(Circuito.class);
 		buque = mock(Buque.class);
-		circuitos = new HashSet<Circuito>();
+		circuitos = new ArrayList<Circuito>();
 		circuitos.add(circuito1);
 		circuitos.add(circuito2);
 		circuitos.add(circuito3);
 		viaje = mock(Viaje.class);
-		viajes = new HashSet<Viaje>();
+		viajes = new ArrayList<Viaje>();
 		viajes.add(viaje);
 		unaNaviera = new Naviera("Naviera del Sur", circuitos, Arrays.asList(buque), viajes);
 	}

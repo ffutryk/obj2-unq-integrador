@@ -5,19 +5,19 @@ import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import ar.edu.unq.po2.integrador.Terminal;
+import ar.edu.unq.po2.integrador.TerminalGestionada;
 
 class ArrivedTest {
 
 	FaseDeViaje faseArrived;
 	Viaje viajeCorrespondiente;
-	Terminal gestionada;
+	TerminalGestionada gestionada;
 	
 	@BeforeEach
 	void setUp() throws Exception {
 		faseArrived = new Arrived();
 		viajeCorrespondiente = mock(Viaje.class);
-		gestionada = mock(Terminal.class);
+		gestionada = mock(TerminalGestionada.class);
 		when(viajeCorrespondiente.getGestionada()).thenReturn(gestionada);
 	}
 

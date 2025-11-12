@@ -7,6 +7,7 @@ import java.util.Objects;
 import ar.edu.unq.po2.integrador.Buque;
 import ar.edu.unq.po2.integrador.Circuito;
 import ar.edu.unq.po2.integrador.Terminal;
+import ar.edu.unq.po2.integrador.TerminalGestionada;
 
 public class Viaje {
 	
@@ -14,9 +15,9 @@ public class Viaje {
 	private Circuito circuito;
 	private Buque buque;
 	private FaseDeViaje fase;
-	private Terminal gestionada;
+	private TerminalGestionada gestionada;
 	
-	public Viaje(Buque unBuque, Circuito unCircuito, LocalDateTime unaFechaDeSalida, Terminal terminal) {
+	public Viaje(Buque unBuque, Circuito unCircuito, LocalDateTime unaFechaDeSalida, TerminalGestionada terminal) {
 		this.fechaDeSalida = unaFechaDeSalida;
 		this.circuito = unCircuito;
 		this.buque = unBuque;
@@ -82,7 +83,7 @@ public class Viaje {
 	}
 	// Los mensajes cuyo modificador de visibilidad son protected se esperan ser enviados unicamente por la Fase hacia su Viaje correspondiente.
 
-	public Terminal getGestionada() {
+	public TerminalGestionada getGestionada() {
 		return this.gestionada;
 	}
 

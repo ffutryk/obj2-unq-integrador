@@ -3,7 +3,10 @@ package ar.edu.unq.po2.ordenes;
 import java.util.List;
 
 import ar.edu.unq.po2.integrador.Cliente;
+import ar.edu.unq.po2.integrador.Factura;
 import ar.edu.unq.po2.integrador.containers.Container;
+import ar.edu.unq.po2.integrador.email.Email;
+import ar.edu.unq.po2.integrador.email.IEmailService;
 import ar.edu.unq.po2.integrador.servicios.DesgloseDeServicio;
 import ar.edu.unq.po2.integrador.servicios.Servicio;
 import ar.edu.unq.po2.integrador.fases.Viaje;
@@ -14,13 +17,13 @@ import java.util.ArrayList;
 
 public abstract class Orden implements IReportable {
 	
-	private Container container;
-	private Cliente cliente;
-	private List<DesgloseDeServicio> serviciosContratados;
-	private LocalDateTime turno;  //fechaLlegada o fechaSalida (depende si es impo o expo)
-	private Viaje viaje;
-	private String chofer;
-	private String camion;
+	protected Container container;
+	protected Cliente cliente;
+	protected List<DesgloseDeServicio> serviciosContratados;
+	protected LocalDateTime turno;  //fechaLlegada o fechaSalida (depende si es impo o expo)
+	protected Viaje viaje;
+	protected String chofer;
+	protected String camion;
 
 	public Orden(Viaje viaje, Container container, String camion, String chofer, Cliente cliente, LocalDateTime turno) {
 		this.cliente = cliente;
@@ -46,9 +49,7 @@ public abstract class Orden implements IReportable {
 	
 	public abstract double diasDeServicio();
 	
-	public boolean esDeImportacion() {
-		return false;
-	}
+	public abstract boolean esDeImportacion();
 	
 	public abstract LocalDateTime getFechaDeFacturacion();
 	
@@ -67,5 +68,16 @@ public abstract class Orden implements IReportable {
 	public double totalServicios() {
 	    return serviciosContratados.stream().mapToDouble(s->s.getCosto()).sum();
 	}
+	
+	public void enviarFactura(IEmailService emailService) {
+		Factura facturaCorrespondiente = new Factura(this.cliente);
+		Cliente destinatario = this.cliente;
+		String asunto = "Factura correspondiente a " + this.container.getId();
+		String cuerpo = facturaCorrespondiente.imprimir();
+		Email email = new Email(destinatario.getDirecciomMail(), asunto, cuerpo);
+		emailService.mandarEmail(email);
+	}
+	
+	public abstract void enviarMail(IEmailService emailService);
 	
 }

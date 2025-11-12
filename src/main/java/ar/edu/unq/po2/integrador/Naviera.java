@@ -8,22 +8,22 @@ import ar.edu.unq.po2.integrador.fases.Viaje;
 public class Naviera {
 	
 	private String nombre;
-	private Set<Circuito> circuitos;
+	private List<Circuito> circuitos;
 	private List<Buque> buques; // Lo puse porque asi lo tenemos en UML pero no se que tan necesario es...
-	private Set<Viaje> viajes;
+	private List<Viaje> viajes;
 
-	public Naviera(String unNombre, Set<Circuito> circuitos, List<Buque> buques, Set<Viaje> viajes) {
+	public Naviera(String unNombre, List<Circuito> circuitos, List<Buque> buques, List<Viaje> viajes) {
 		this.nombre = unNombre;
 		this.circuitos = circuitos;
 		this.buques = buques;
 		this.viajes = viajes;
 	}
 
-	public Set<Circuito> getCircuitos() {
+	public List<Circuito> getCircuitos() {
 		return this.circuitos;
 	}
 
-	public Set<Viaje> getViajes() {
+	public List<Viaje> getViajes() {
 		return this.viajes;
 	}
 

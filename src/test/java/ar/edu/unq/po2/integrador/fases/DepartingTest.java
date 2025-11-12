@@ -6,19 +6,19 @@ import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import ar.edu.unq.po2.integrador.Terminal;
+import ar.edu.unq.po2.integrador.TerminalGestionada;
 
 class DepartingTest {
 	
 	FaseDeViaje faseDeparting;
 	Viaje unViaje;
-	Terminal gestionada;
+	TerminalGestionada gestionada;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		faseDeparting = new Departing();
 		unViaje = mock(Viaje.class);
-		gestionada = mock(Terminal.class);
+		gestionada = mock(TerminalGestionada.class);
 		when(unViaje.getGestionada()).thenReturn(gestionada);
 	}
 
@@ -46,6 +46,5 @@ class DepartingTest {
 		when(unViaje.distanciaATerminalGestionada()).thenReturn(2d);
 		faseDeparting.realizarAccionPara(unViaje);
 		verify(gestionada).anunciarPartida(unViaje);
-		verify(gestionada).enviarFacturasPara(unViaje);
 	}
 }

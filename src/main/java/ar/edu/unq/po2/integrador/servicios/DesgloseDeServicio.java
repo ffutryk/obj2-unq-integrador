@@ -25,5 +25,8 @@ public class DesgloseDeServicio {
 	public double getCosto() {
 		return costo;
 	}
-	
+
+	public String imprimir() {
+		return "\t" + this.nombre + "\t" + this.fecha + "\t" + this.costo + "\n";
+	}
 }

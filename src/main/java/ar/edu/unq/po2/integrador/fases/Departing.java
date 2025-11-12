@@ -7,7 +7,6 @@ public class Departing extends FaseDeViaje {
 		if(unViaje.distanciaATerminalGestionada() > 1d) {
 			unViaje.setFase(new Outbound());
 			unViaje.getGestionada().anunciarPartida(unViaje);
-			unViaje.getGestionada().enviarFacturasPara(unViaje); // Esto creo que sería algo internamente que debería hacer la terminal gestionada en su método para *anunciarPartida(Viaje)*...
 		}
 	}
 

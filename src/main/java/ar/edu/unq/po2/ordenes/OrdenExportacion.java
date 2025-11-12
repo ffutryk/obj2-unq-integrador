@@ -5,6 +5,8 @@ import java.time.temporal.ChronoUnit;
 
 import ar.edu.unq.po2.integrador.Cliente;
 import ar.edu.unq.po2.integrador.containers.Container;
+import ar.edu.unq.po2.integrador.email.Email;
+import ar.edu.unq.po2.integrador.email.IEmailService;
 import ar.edu.unq.po2.integrador.fases.Viaje;
 import ar.edu.unq.po2.integrador.reportes.VisitanteReportable;
 
@@ -36,5 +38,13 @@ public class OrdenExportacion extends Orden {
 	@Override
 	public void aceptar(VisitanteReportable visitante) {
 		visitante.visitar(this);
+	}
+	
+	public void enviarMail(IEmailService emailService) {
+		Cliente destinatario = this.cliente;
+		String asunto = "Partida exitosa de la carga " + this.container.getId();
+		String cuerpo = "Tu carga ha partido correctamente...";
+		Email email = new Email(destinatario.getDirecciomMail(), asunto, cuerpo);
+		emailService.mandarEmail(email);
 	}
 }

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import ar.edu.unq.po2.integrador.Buque;
 import ar.edu.unq.po2.integrador.Circuito;
 import ar.edu.unq.po2.integrador.PosicionGeografica;
+import ar.edu.unq.po2.integrador.TerminalGestionada;
 import ar.edu.unq.po2.integrador.Terminal;
 
 class ViajeTest {
@@ -20,14 +21,14 @@ class ViajeTest {
 
     Buque unBuque;
     Circuito unCircuito;
-    Terminal unaTerminal;
+    TerminalGestionada unaTerminal;
     LocalDateTime fechaSalida;
 
     @BeforeEach
     void setUp() throws Exception {
         unBuque = mock(Buque.class);
         unCircuito = mock(Circuito.class);
-        unaTerminal = mock(Terminal.class);
+        unaTerminal = mock(TerminalGestionada.class);
         fechaSalida = LocalDateTime.of(2025, 1, 1, 8, 0);
         unViaje = new Viaje(unBuque, unCircuito, fechaSalida, unaTerminal);
     }
