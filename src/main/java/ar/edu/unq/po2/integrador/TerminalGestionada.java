@@ -8,6 +8,7 @@ import java.util.List;
 import ar.edu.unq.po2.integrador.busqueda.ICircuitosProveedor;
 import ar.edu.unq.po2.integrador.busqueda.IViajesProveedor;
 import ar.edu.unq.po2.integrador.busqueda.MotorDeBusqueda;
+import ar.edu.unq.po2.integrador.busqueda.estrategias.MasBarata;
 import ar.edu.unq.po2.integrador.containers.Container;
 import ar.edu.unq.po2.integrador.email.Email;
 import ar.edu.unq.po2.integrador.email.IEmailService;
@@ -32,7 +33,7 @@ public class TerminalGestionada extends Terminal implements ICircuitosProveedor,
 		this.ordenes = new ArrayList<Orden>(); 
 		this.navieras = new ArrayList<Naviera>();
 		this.clientes = new ArrayList<Cliente>();
-		this.motorDeBusqueda = new MotorDeBusqueda(this, this, null);
+		this.motorDeBusqueda = new MotorDeBusqueda(this, this, new MasBarata());
 		this.empresasTransportistas = new ArrayList<EmpresaTransportista>();
 		this.emailService = servicioEmail;
 	}
@@ -112,16 +113,17 @@ public class TerminalGestionada extends Terminal implements ICircuitosProveedor,
 	
 
 	public void anunciarInminenteLlegada(Viaje unViaje) { // Este mensaje es enviado por la fase Inbound...
-		this.mandarMail(unViaje);
+		//this.mandarMail(unViaje);
+		this.ordenes.stream().filter(orden -> orden.esDeImportacion() && orden.getViaje().equals(unViaje)).forEach(orden -> orden.enviarMail(emailService));
 	}
 
-	private void mandarMail(Viaje unViaje) {
+	/*private void mandarMail(Viaje unViaje) {
 		this.ordenes.stream().filter(orden -> orden.getViaje().equals(unViaje)).forEach(orden -> orden.enviarMail(this.emailService));
-	}
+	}*/
 	
 	public void anunciarPartida(Viaje unViaje) {
 		this.arribados.remove(unViaje); 
-		this.mandarMail(unViaje);
+		this.ordenes.stream().filter(orden -> !orden.esDeImportacion() && orden.getViaje().equals(unViaje)).forEach(orden -> orden.enviarMail(emailService));
 		this.enviarFacturasPara(unViaje);  
 	}
 	
@@ -164,5 +166,9 @@ public class TerminalGestionada extends Terminal implements ICircuitosProveedor,
 		if(!this.viajesDisponibles().stream().anyMatch(viaje -> viaje.pasaPorLaTerminal(unDestino))) {
 			throw new RuntimeException("El destino no es alcanzado por ninguno de los viajes disponibles...");
 		}
+	}
+
+	void agregarOrden(Orden unaOrden) {
+		this.ordenes.add(unaOrden);
 	}
 }

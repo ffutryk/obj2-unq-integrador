@@ -3,6 +3,8 @@ package ar.edu.unq.po2.integrador;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -88,5 +90,131 @@ class TerminalGestionadaTest {
 		EmpresaTransportista empresa = mock(EmpresaTransportista.class);
 		terminal.registrarEmpresaTransportista(empresa);
 		assertEquals(1, terminal.cantidadDeEmpresasTransportistas());
+	}
+	
+	@Test
+	void testLaTerminalSabeResponderLosCircuitosDisponibles() {
+		Naviera unaNaviera = mock(Naviera.class);
+		Naviera otraNaviera = mock(Naviera.class);
+		Circuito c1 = mock(Circuito.class);
+		Circuito c2 = mock(Circuito.class);
+		Circuito c3 = mock(Circuito.class);
+		Circuito c4 = mock(Circuito.class);
+		terminal.registrarNaviera(unaNaviera);
+		terminal.registrarNaviera(otraNaviera);
+		when(unaNaviera.getCircuitos()).thenReturn(Arrays.asList(c1, c2, c3));
+		when(otraNaviera.getCircuitos()).thenReturn(Arrays.asList(c4));
+		
+		assertEquals(Arrays.asList(c1, c2, c3, c4), terminal.circuitosDisponibles());
+	}
+	
+	@Test
+	void testLaTerminalSabeResponderLosViajesDisponibles() {
+		Naviera unaNaviera = mock(Naviera.class);
+		Naviera otraNaviera = mock(Naviera.class);
+		Viaje v1 = mock(Viaje.class);
+		Viaje v2 = mock(Viaje.class);
+		Viaje v3 = mock(Viaje.class);
+		Viaje v4 = mock(Viaje.class);
+		terminal.registrarNaviera(unaNaviera);
+		terminal.registrarNaviera(otraNaviera);
+		when(unaNaviera.getViajes()).thenReturn(Arrays.asList(v1, v2, v3));
+		when(otraNaviera.getViajes()).thenReturn(Arrays.asList(v4));
+		
+		assertEquals(Arrays.asList(v1, v2, v3, v4), terminal.viajesDisponibles());
+	}
+	
+	@Test
+	void testLaTerminalSabeResponderCualEsElMejorCircuitoQueIncluyaALaTerminalDestinoDada() {
+		Terminal terminalDestino = mock(Terminal.class);
+		Naviera unaNaviera = mock(Naviera.class);
+		Circuito c1 = mock(Circuito.class);
+		Circuito c2 = mock(Circuito.class);
+		Circuito c3 = mock(Circuito.class);
+		Circuito c4 = mock(Circuito.class);
+		terminal.registrarNaviera(unaNaviera);
+		when(unaNaviera.getCircuitos()).thenReturn(Arrays.asList(c1, c2, c3, c4));
+		when(c2.costoTotal()).thenReturn(50d);
+		when(c4.costoTotal()).thenReturn(55d);
+		when(c2.incluyeLaTerminal(terminalDestino)).thenReturn(true);
+		when(c4.incluyeLaTerminal(terminalDestino)).thenReturn(true);
+		
+		assertEquals(c2, terminal.mejorCircuitoHacia(terminalDestino)); // Porque por defecto está seteada la estrategia más barata...
+	}
+	
+	@Test
+	void testLaTerminalNotificaViaMailALosConsigneesQueEstanEsperandoPorLaLlegadaDeUnViajeDado() {
+		Orden ordenImpo = mock(Orden.class);
+		when(ordenImpo.getViaje()).thenReturn(unViaje);
+		Orden ordenExpo = mock(Orden.class);
+		Viaje otroViaje = mock(Viaje.class);
+		when(ordenExpo.getViaje()).thenReturn(otroViaje);
+		when(ordenExpo.esDeImportacion()).thenReturn(false);
+		when(ordenImpo.esDeImportacion()).thenReturn(true);
+		terminal.agregarOrden(ordenImpo);
+		terminal.agregarOrden(ordenExpo);
+		
+		terminal.anunciarInminenteLlegada(unViaje);
+		
+		verify(ordenImpo).enviarMail(servicioEmail);
+		verify(ordenExpo, never()).enviarMail(servicioEmail);
+	}
+	
+	@Test
+	void testLaTerminalNotificaALosShippersQueEstanEsperandoPorLaPartidaDeUnViajeDeterminado() {
+		Viaje otroViaje = mock(Viaje.class);
+		Orden ordenImpo = mock(Orden.class);
+		when(ordenImpo.getViaje()).thenReturn(otroViaje);
+		Orden ordenExpo = mock(Orden.class);
+		when(ordenExpo.getViaje()).thenReturn(unViaje);
+		when(ordenExpo.esDeImportacion()).thenReturn(false);
+		when(ordenImpo.esDeImportacion()).thenReturn(true);
+		terminal.agregarOrden(ordenImpo);
+		terminal.agregarOrden(ordenExpo);
+		
+		terminal.anunciarPartida(unViaje);
+		
+		verify(ordenExpo).enviarMail(servicioEmail);
+		verify(ordenImpo, never()).enviarMail(servicioEmail);
+	}
+	
+	@Test
+	void testNoSePuedePreguntarPorElTiempoDeViajeDeUnaNavieraQueNoEstaRegistradaEnLaTerminal() {
+		Naviera unaNaviera = mock(Naviera.class);
+		assertThrows(RuntimeException.class, () -> terminal.tiempoDeViajePorA(unaNaviera, mock(Terminal.class)));
+	}
+	
+	@Test
+	void testNoSePuedePreguntarPorElTiempoDeViajeDePorUnaNavieraHastaUnaTerminalQueNoPerteneceANingunCircuito() {
+		Terminal terminalDestino = mock(Terminal.class);
+		Naviera unaNaviera = mock(Naviera.class);
+		Circuito c1 = mock(Circuito.class);
+		Circuito c2 = mock(Circuito.class);
+		Circuito c3 = mock(Circuito.class);
+		Circuito c4 = mock(Circuito.class);
+		terminal.registrarNaviera(unaNaviera);
+		when(unaNaviera.getCircuitos()).thenReturn(Arrays.asList(c1, c2, c3, c4));
+		when(c1.incluyeLaTerminal(terminalDestino)).thenReturn(false);
+		when(c2.incluyeLaTerminal(terminalDestino)).thenReturn(false);
+		when(c3.incluyeLaTerminal(terminalDestino)).thenReturn(false);
+		when(c4.incluyeLaTerminal(terminalDestino)).thenReturn(false);
+		assertThrows(RuntimeException.class, () -> terminal.tiempoDeViajePorA(unaNaviera, terminalDestino));
+	}
+	
+	@Test
+	void testLaTerminalSabeResponderCuantoTardaUnaNavieraEnRecorrerUnCircuitoQueIncluyeEnSusCircuitos() {
+		Terminal terminalDestino = mock(Terminal.class);
+		Naviera unaNaviera = mock(Naviera.class);
+		Circuito c1 = mock(Circuito.class);
+		Circuito c2 = mock(Circuito.class);
+		Circuito c3 = mock(Circuito.class);
+		Circuito c4 = mock(Circuito.class);
+		terminal.registrarNaviera(unaNaviera);
+		when(unaNaviera.getCircuitos()).thenReturn(Arrays.asList(c1, c2, c3, c4));
+		when(c1.incluyeLaTerminal(terminalDestino)).thenReturn(false);
+		when(c2.incluyeLaTerminal(terminalDestino)).thenReturn(false);
+		when(c3.incluyeLaTerminal(terminalDestino)).thenReturn(true);
+		when(c4.incluyeLaTerminal(terminalDestino)).thenReturn(false);
+		
 	}
 }
