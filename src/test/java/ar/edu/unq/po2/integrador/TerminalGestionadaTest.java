@@ -269,4 +269,79 @@ class TerminalGestionadaTest {
 
 		assertEquals(dateViaje1, terminal.proximaFechaDePartidaHasta(destino));
 	}
+	
+	@Test
+	void testLaTerminalRechazaLaEntregaDeUnaCargaSiDifiereEnMasDe3HorasConElTurnoAsignado() {
+		Orden ordenExpo = mock(Orden.class);
+		LocalDateTime turnoOrden = LocalDateTime.of(2025, 11, 12, 19, 30);
+		when(ordenExpo.getTurno()).thenReturn(turnoOrden);
+		terminal.agregarOrden(ordenExpo);
+		assertThrows(RuntimeException.class, () -> terminal.verificarAutorizacion(ordenExpo, unCamion, unChofer));
+	}
+	
+	@Test
+	void testLaTerminalRechazaLaEntregaDeUnaCargaSiElCamionNoEstaAutorizadoEnLaTerminal() {
+		Orden ordenExpo = mock(Orden.class);
+		LocalDateTime turnoOrden = LocalDateTime.of(2025, 11, 13, 0, 0);
+		Camion camionQueTrajo = mock(Camion.class);
+		when(ordenExpo.getTurno()).thenReturn(turnoOrden);
+		when(ordenExpo.getCamion()).thenReturn(camionQueTrajo);
+		EmpresaTransportista empresa = mock(EmpresaTransportista.class);
+		terminal.registrarEmpresaTransportista(empresa);
+		when(empresa.tieneRegistradaA(camionQueTrajo)).thenReturn(false);
+		terminal.agregarOrden(ordenExpo);
+		
+		assertThrows(RuntimeException.class, () -> terminal.verificarAutorizacion(ordenExpo, camionQueTrajo, unChofer));
+	}
+	
+	@Test
+	void testLaTerminalRechazaLaEntregaDeUnaCargaSiElCamionNoCoincideConElDeclaradoEnLaOrden() {
+		Orden ordenExpo = mock(Orden.class);
+		LocalDateTime turnoOrden = LocalDateTime.of(2025, 11, 13, 0, 0);
+		Camion camionQueTrajo = mock(Camion.class);
+		when(ordenExpo.getTurno()).thenReturn(turnoOrden);
+		when(ordenExpo.getCamion()).thenReturn(unCamion);
+		EmpresaTransportista empresa = mock(EmpresaTransportista.class);
+		terminal.registrarEmpresaTransportista(empresa);
+		when(empresa.tieneRegistradaA(camionQueTrajo)).thenReturn(true);
+		terminal.agregarOrden(ordenExpo);
+		
+		assertThrows(RuntimeException.class, () -> terminal.verificarAutorizacion(ordenExpo, camionQueTrajo, unChofer));
+	}
+	
+	@Test
+	void testLaTerminalRechazaLaEntregaDeUnaCargaSiElChoferNoEstaAutorizadoEnLaTerminal() {
+		Orden ordenExpo = mock(Orden.class);
+		LocalDateTime turnoOrden = LocalDateTime.of(2025, 11, 13, 0, 0);
+		when(ordenExpo.getTurno()).thenReturn(turnoOrden);
+		when(ordenExpo.getCamion()).thenReturn(unCamion);
+		when(ordenExpo.getChofer()).thenReturn(unChofer);
+		EmpresaTransportista empresa = mock(EmpresaTransportista.class);
+		terminal.registrarEmpresaTransportista(empresa);
+		when(empresa.tieneRegistradaA(unCamion)).thenReturn(true);
+		when(empresa.tieneRegistradaA(unChofer)).thenReturn(false);
+		terminal.agregarOrden(ordenExpo);
+		
+		assertThrows(RuntimeException.class, () -> terminal.verificarAutorizacion(ordenExpo, unCamion, unChofer));
+	}
+	
+	@Test
+	void testLaTerminalRechazaLaEntregaDeUnaCargaSiElChoferNoCoincideConElDeclaradoEnLaOrden() {
+		Orden ordenExpo = mock(Orden.class);
+		LocalDateTime turnoOrden = LocalDateTime.of(2025, 11, 13, 0, 0);
+		Chofer otroChofer = mock(Chofer.class);
+		when(ordenExpo.getTurno()).thenReturn(turnoOrden);
+		when(ordenExpo.getCamion()).thenReturn(unCamion);
+		when(ordenExpo.getChofer()).thenReturn(otroChofer);
+		EmpresaTransportista empresa = mock(EmpresaTransportista.class);
+		terminal.registrarEmpresaTransportista(empresa);
+		when(empresa.tieneRegistradaA(unCamion)).thenReturn(true);
+		when(empresa.tieneRegistradaA(otroChofer)).thenReturn(true);
+		when(empresa.tieneRegistradaA(unChofer)).thenReturn(true);
+		terminal.agregarOrden(ordenExpo);
+		
+		assertThrows(RuntimeException.class, () -> terminal.verificarAutorizacion(ordenExpo, unCamion, unChofer));
+	}
+	
+	
 }

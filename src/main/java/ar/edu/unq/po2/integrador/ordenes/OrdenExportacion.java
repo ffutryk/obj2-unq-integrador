@@ -3,6 +3,8 @@ package ar.edu.unq.po2.integrador.ordenes;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import ar.edu.unq.po2.integrador.Camion;
+import ar.edu.unq.po2.integrador.Chofer;
 import ar.edu.unq.po2.integrador.Cliente;
 import ar.edu.unq.po2.integrador.containers.Container;
 import ar.edu.unq.po2.integrador.email.Email;
@@ -14,7 +16,7 @@ public class OrdenExportacion extends Orden {
 
 	private LocalDateTime fechaIngreso;
 	
-	public OrdenExportacion(Viaje viaje, Container container, String camion, String chofer, Cliente cliente, LocalDateTime fechaSalida) {
+	public OrdenExportacion(Viaje viaje, Container container, Camion camion, Chofer chofer, Cliente cliente, LocalDateTime fechaSalida) {
 		super(viaje, container, camion, chofer, cliente, fechaSalida);
 	}
 	

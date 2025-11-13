@@ -2,6 +2,8 @@ package ar.edu.unq.po2.integrador.ordenes;
 
 import java.util.List;
 
+import ar.edu.unq.po2.integrador.Camion;
+import ar.edu.unq.po2.integrador.Chofer;
 import ar.edu.unq.po2.integrador.Cliente;
 import ar.edu.unq.po2.integrador.Factura;
 import ar.edu.unq.po2.integrador.containers.Container;
@@ -22,10 +24,10 @@ public abstract class Orden implements IReportable {
 	protected List<DesgloseDeServicio> serviciosContratados;
 	protected LocalDateTime turno;  //fechaLlegada o fechaSalida (depende si es impo o expo)
 	protected Viaje viaje;
-	protected String chofer;
-	protected String camion;
+	protected Chofer chofer;
+	protected Camion camion;
 
-	public Orden(Viaje viaje, Container container, String camion, String chofer, Cliente cliente, LocalDateTime turno) {
+	public Orden(Viaje viaje, Container container, Camion camion, Chofer chofer, Cliente cliente, LocalDateTime turno) {
 		this.cliente = cliente;
 		this.container = container;
 		this.serviciosContratados = new ArrayList<DesgloseDeServicio>();
@@ -79,5 +81,14 @@ public abstract class Orden implements IReportable {
 	}
 	
 	public abstract void enviarMail(IEmailService emailService);
+
+	public Chofer getChofer() {
+		return this.chofer;
+	}
+
+	public Camion getCamion() {
+		// TODO Auto-generated method stub
+		return this.camion;
+	}
 	
 }

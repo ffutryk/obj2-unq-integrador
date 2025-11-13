@@ -11,4 +11,12 @@ public class EmpresaTransportista {
 		this.camiones = camiones;
 		this.choferes = choferes;
 	}
+
+	public boolean tieneRegistradaA(Camion unCamion) {
+		return this.camiones.contains(unCamion);
+	}
+	
+	public boolean tieneRegistradaA(Chofer unChofer) {
+		return this.choferes.contains(unChofer);
+	}
 }

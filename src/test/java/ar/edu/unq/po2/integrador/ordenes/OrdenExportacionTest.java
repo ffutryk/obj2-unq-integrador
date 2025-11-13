@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ar.edu.unq.po2.integrador.Camion;
+import ar.edu.unq.po2.integrador.Chofer;
 import ar.edu.unq.po2.integrador.Cliente;
 import ar.edu.unq.po2.integrador.containers.Container;
 import ar.edu.unq.po2.integrador.email.Email;
@@ -22,8 +24,8 @@ public class OrdenExportacionTest {
 	private OrdenExportacion orden;
     private Viaje viaje;
     private Container container;
-    private String camion;
-    private String chofer;
+    private Camion camion;
+    private Chofer chofer;
     private Cliente cliente;
     private LocalDateTime fechaSalida;
     private Servicio servicio1;
@@ -33,8 +35,8 @@ public class OrdenExportacionTest {
     void setUp() {
         viaje = mock(Viaje.class);
         container = mock(Container.class);
-        camion = "TER564";
-        chofer = "Jorge";
+        camion = mock(Camion.class);
+        chofer = mock(Chofer.class);
         cliente = mock(Cliente.class);
         fechaSalida = LocalDateTime.of(2025, 11, 1, 8, 0);
         

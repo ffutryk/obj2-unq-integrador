@@ -42,7 +42,7 @@ public class TerminalGestionada extends Terminal implements ICircuitosProveedor,
 		if(!unViaje.estaHabilitadoParaExportacion()) {
 			throw new RuntimeException("No se pueden registrar nuevas exportaciones en este viaje...");
 		}
-		Orden orden = new OrdenExportacion(unViaje, unContainer, unCamion.getMatricula(), unChofer.getNombre(), unCliente, unViaje.fechaDeArriboA(this));
+		Orden orden = new OrdenExportacion(unViaje, unContainer, unCamion, unChofer, unCliente, unViaje.fechaDeArriboA(this));
 		this.ordenes.add(orden);
 		return orden;
 	}
@@ -56,7 +56,7 @@ public class TerminalGestionada extends Terminal implements ICircuitosProveedor,
 		if(!unViaje.estaHabilitadoParaImportacion()) {
 			throw new RuntimeException("No se pueden registrar nuevas importaciones en este viaje...");
 		}
-		Orden orden = new OrdenImportacion(unViaje, unContainer, unCamion.getMatricula(), unChofer.getNombre(), unCliente, unViaje.fechaDeArriboA(this));
+		Orden orden = new OrdenImportacion(unViaje, unContainer, unCamion, unChofer, unCliente, unViaje.fechaDeArriboA(this));
 		this.ordenes.add(orden);
 		return orden;
 	}
@@ -171,4 +171,32 @@ public class TerminalGestionada extends Terminal implements ICircuitosProveedor,
 	void agregarOrden(Orden unaOrden) {
 		this.ordenes.add(unaOrden);
 	}
+
+	public void verificarAutorizacion(Orden unaOrden, Camion unCamion, Chofer unChofer) {
+		asertarTurnoPara(unaOrden);
+		asertarCamionAutorizado(unaOrden, unCamion);
+		asertarChoferAutorizado(unaOrden, unChofer);
+	}
+
+	private void asertarChoferAutorizado(Orden unaOrden, Chofer unChofer) {
+		if(!empresasTransportistas.stream().anyMatch(empresa -> empresa.tieneRegistradaA(unChofer)) ||
+		   !unaOrden.getChofer().equals(unChofer)) {
+			throw new RuntimeException("El chofer no está autorizado para ésta orden...");
+		}
+	}
+
+	private void asertarCamionAutorizado(Orden unaOrden, Camion unCamion) {
+		if(!empresasTransportistas.stream().anyMatch(empresa -> empresa.tieneRegistradaA(unCamion)) ||
+		   !unaOrden.getCamion().equals(unCamion)) {
+			throw new RuntimeException("El camión no está autorizado para ésta orden...");
+		}
+	}
+
+	private void asertarTurnoPara(Orden unaOrden) {
+		long diferencia = Duration.between(unaOrden.getTurno(), LocalDateTime.now()).toHours();
+		if(diferencia > 3) {
+			throw new RuntimeException("Venció su turno...");
+		}
+	}
+	
 }
