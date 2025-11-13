@@ -87,7 +87,6 @@ public abstract class Orden implements IReportable {
 	}
 
 	public Camion getCamion() {
-		// TODO Auto-generated method stub
 		return this.camion;
 	}
 	

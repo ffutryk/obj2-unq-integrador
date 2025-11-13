@@ -343,7 +343,7 @@ class TerminalGestionadaTest {
 		LocalDateTime turnoOrden = LocalDateTime.of(2025, 11, 12, 19, 30);
 		when(ordenExpo.getTurno()).thenReturn(turnoOrden);
 		terminal.agregarOrden(ordenExpo);
-		assertThrows(RuntimeException.class, () -> terminal.verificarAutorizacion(ordenExpo, unCamion, unChofer));
+		assertThrows(RuntimeException.class, () -> terminal.autorizarEntrega(ordenExpo, unCamion, unChofer));
 	}
 	
 	@Test
@@ -358,7 +358,7 @@ class TerminalGestionadaTest {
 		when(empresa.tieneRegistradaA(camionQueTrajo)).thenReturn(false);
 		terminal.agregarOrden(ordenExpo);
 		
-		assertThrows(RuntimeException.class, () -> terminal.verificarAutorizacion(ordenExpo, camionQueTrajo, unChofer));
+		assertThrows(RuntimeException.class, () -> terminal.autorizarEntrega(ordenExpo, camionQueTrajo, unChofer));
 	}
 	
 	@Test
@@ -373,7 +373,7 @@ class TerminalGestionadaTest {
 		when(empresa.tieneRegistradaA(camionQueTrajo)).thenReturn(true);
 		terminal.agregarOrden(ordenExpo);
 		
-		assertThrows(RuntimeException.class, () -> terminal.verificarAutorizacion(ordenExpo, camionQueTrajo, unChofer));
+		assertThrows(RuntimeException.class, () -> terminal.autorizarEntrega(ordenExpo, camionQueTrajo, unChofer));
 	}
 	
 	@Test
@@ -389,7 +389,7 @@ class TerminalGestionadaTest {
 		when(empresa.tieneRegistradaA(unChofer)).thenReturn(false);
 		terminal.agregarOrden(ordenExpo);
 		
-		assertThrows(RuntimeException.class, () -> terminal.verificarAutorizacion(ordenExpo, unCamion, unChofer));
+		assertThrows(RuntimeException.class, () -> terminal.autorizarEntrega(ordenExpo, unCamion, unChofer));
 	}
 	
 	@Test
@@ -407,7 +407,7 @@ class TerminalGestionadaTest {
 		when(empresa.tieneRegistradaA(unChofer)).thenReturn(true);
 		terminal.agregarOrden(ordenExpo);
 		
-		assertThrows(RuntimeException.class, () -> terminal.verificarAutorizacion(ordenExpo, unCamion, unChofer));
+		assertThrows(RuntimeException.class, () -> terminal.autorizarEntrega(ordenExpo, unCamion, unChofer));
 	}
 	
 	

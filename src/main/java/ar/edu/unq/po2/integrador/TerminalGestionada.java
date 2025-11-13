@@ -22,6 +22,7 @@ import ar.edu.unq.po2.integrador.reportes.VisitanteBuque;
 import ar.edu.unq.po2.integrador.reportes.VisitanteMuelle;
 import ar.edu.unq.po2.integrador.reportes.VisitanteReportable;
 import ar.edu.unq.po2.integrador.servicios.Servicio;
+import ar.edu.unq.po2.integrador.servicios.ServicioAlmacenamientoExcedente;
 
 public class TerminalGestionada extends Terminal implements ICircuitosProveedor, IViajesProveedor{
 
@@ -192,7 +193,7 @@ public class TerminalGestionada extends Terminal implements ICircuitosProveedor,
 		this.ordenes.add(unaOrden);
 	}
 
-	public void verificarAutorizacion(Orden unaOrden, Camion unCamion, Chofer unChofer) {
+	public void autorizarEntrega(Orden unaOrden, Camion unCamion, Chofer unChofer) {
 		asertarTurnoPara(unaOrden);
 		asertarCamionAutorizado(unaOrden, unCamion);
 		asertarChoferAutorizado(unaOrden, unChofer);
@@ -219,4 +220,12 @@ public class TerminalGestionada extends Terminal implements ICircuitosProveedor,
 		}
 	}
 	
+	public void autorizarRetiro(Orden unaOrden, Camion unCamion, Chofer unChofer) {
+		long diferencia = Duration.between(unaOrden.getTurno(), LocalDateTime.now()).toHours();
+		if(diferencia > 24) {
+			this.contratarServicio(unaOrden, new ServicioAlmacenamientoExcedente(20d));
+		}
+		asertarCamionAutorizado(unaOrden, unCamion);
+		asertarChoferAutorizado(unaOrden, unChofer);
+	}
 }
