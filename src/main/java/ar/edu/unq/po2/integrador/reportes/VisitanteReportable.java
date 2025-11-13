@@ -15,7 +15,7 @@ public abstract class VisitanteReportable {
 	public abstract void visitar(OrdenExportacion orden);
 	protected abstract String generarReporte();
 	
-	String generarReportePara(Viaje viaje, List<Orden> ordenes) {
+	public String generarReportePara(Viaje viaje, List<Orden> ordenes) {
     	viaje.getBuque().aceptar(this);
     	
     	List<Orden> ordenesDelViaje = ordenes
