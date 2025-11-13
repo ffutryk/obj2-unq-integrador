@@ -52,8 +52,8 @@ public class OrdenExportacionTest {
     }
     
     @Test
-    void testDiasDeServicioSinRegistrarIngresoDaCero() {
-        assertEquals(0, orden.diasDeServicio());
+    void testHorasDeServicioSinRegistrarIngresoDaCero() {
+        assertEquals(0, orden.horasDeServicio());
     }
     
     @Test
@@ -64,9 +64,9 @@ public class OrdenExportacionTest {
     }
     
     @Test
-    void testDiasDeServicioConIngreso() {
+    void testHorasDeServicioConIngreso() {
         orden.registrarIngreso(LocalDateTime.of(2025, 11, 6, 8, 0));
-        assertEquals(5, orden.diasDeServicio());
+        assertEquals(120, orden.horasDeServicio());
     }
     
     @Test

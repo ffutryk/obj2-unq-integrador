@@ -1,5 +1,6 @@
 package ar.edu.unq.po2.integrador.filtros.criterios;
 
+import ar.edu.unq.po2.integrador.fases.Viaje;
 import ar.edu.unq.po2.integrador.filtros.IFiltroViaje;
 import ar.edu.unq.po2.integrador.filtros.comparadores.EstrategiaComparacionFecha;
 
@@ -9,4 +10,6 @@ public abstract class FiltroPorFecha implements IFiltroViaje {
 	public FiltroPorFecha(EstrategiaComparacionFecha estrategiaComparacion) {
 		this.estrategiaComparacion = estrategiaComparacion;
 	}
+	
+	public abstract boolean cumpleFiltro(Viaje unViaje);
 }

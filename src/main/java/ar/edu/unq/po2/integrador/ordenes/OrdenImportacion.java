@@ -24,9 +24,9 @@ public class OrdenImportacion extends Orden {
 		this.fechaRetiro = fechaRetiro;
 	}
 	 
-	public double diasDeServicio() {
+	public double horasDeServicio() {
 		if (fechaRetiro == null) return 0; //deberia dar 0 si todavia no se registro el retiro? o dar los dias hasta now()?
-		return (double) ChronoUnit.DAYS.between(this.getTurno(), fechaRetiro);
+		return (double) ChronoUnit.HOURS.between(this.getTurno(), fechaRetiro);
 	}
 	
 	@Override

@@ -15,7 +15,7 @@ public class ServicioElectricidad implements Servicio{
 
 	public double importePara(Container c, Orden o) {
 		if(! c.esRefeer()) return 0;
-		double horas = o.diasDeServicio()*24;
+		double horas = o.horasDeServicio();
 		return c.getConsumoKwHora() * horas * montoPorKwConsumido;
 	}
 	

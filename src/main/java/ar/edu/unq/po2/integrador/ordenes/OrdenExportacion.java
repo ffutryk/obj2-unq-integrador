@@ -24,9 +24,10 @@ public class OrdenExportacion extends Orden {
 		this.fechaIngreso = fechaIngreso;
 	}
 	
-	public double diasDeServicio() {
+	@Override
+	public double horasDeServicio() {
 		if (fechaIngreso == null) return 0; //deberia dar 0 si todavia no se registro el retiro? o dar los dias hasta now()?
-		return (double) ChronoUnit.DAYS.between(this.getTurno(), fechaIngreso);
+		return (double) ChronoUnit.HOURS.between(this.getTurno(), fechaIngreso);
 	}
 	
 	public boolean esDeImportacion() {

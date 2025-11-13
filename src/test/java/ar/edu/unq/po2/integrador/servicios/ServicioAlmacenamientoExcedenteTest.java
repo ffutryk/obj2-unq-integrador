@@ -31,21 +31,21 @@ public class ServicioAlmacenamientoExcedenteTest {
     @Test
     void testImporteParaOrdenImportacion() {
         when(ordenI.esDeImportacion()).thenReturn(true);
-        when(ordenI.diasDeServicio()).thenReturn(3.0);
+        when(ordenI.horasDeServicio()).thenReturn(72.0);
         double importe = servicioAE.importePara(container, ordenI);
         assertEquals(200.0, importe);
         verify(ordenI).esDeImportacion();
-        verify(ordenI).diasDeServicio();
+        verify(ordenI).horasDeServicio();
     }
     
     @Test
     void testNoCobraCuandoDiasSonNegativos() {
         when(ordenI.esDeImportacion()).thenReturn(true);
-        when(ordenI.diasDeServicio()).thenReturn(0.0);
+        when(ordenI.horasDeServicio()).thenReturn(0.0);
         double importe = servicioAE.importePara(container, ordenI);
         assertEquals(0, importe);
         verify(ordenI).esDeImportacion();
-        verify(ordenI).diasDeServicio();
+        verify(ordenI).horasDeServicio();
     }
     
     @Test
@@ -62,19 +62,19 @@ public class ServicioAlmacenamientoExcedenteTest {
     void testObtenerDesgloseCreaDesgloseCorrectamente() {
         LocalDateTime fechaFacturacion = LocalDateTime.of(2025, 11, 15, 8, 0);
         when(ordenI.esDeImportacion()).thenReturn(true);
-        when(ordenI.diasDeServicio()).thenReturn(2.0);
+        when(ordenI.horasDeServicio()).thenReturn(48.0);
         when(ordenI.getFechaDeFacturacion()).thenReturn(fechaFacturacion);
         DesgloseDeServicio desglose = servicioAE.obtenerDesglose(container, ordenI);
         fechaFacturacion = LocalDateTime.of(2025, 11, 15, 8, 0);
         when(ordenE.esDeImportacion()).thenReturn(true);
-        when(ordenE.diasDeServicio()).thenReturn(2.0);
+        when(ordenE.horasDeServicio()).thenReturn(48.0);
         when(ordenE.getFechaDeFacturacion()).thenReturn(fechaFacturacion);
         desglose = servicioAE.obtenerDesglose(container, ordenE);
         assertEquals("ServicioAlmacenamientoExcedente", desglose.getNombre());
         assertEquals(fechaFacturacion, desglose.getFecha());
         assertEquals(100.0, desglose.getCosto());
         verify(ordenI).getFechaDeFacturacion();
-        verify(ordenI).diasDeServicio();
+        verify(ordenI).horasDeServicio();
     }
     
 }

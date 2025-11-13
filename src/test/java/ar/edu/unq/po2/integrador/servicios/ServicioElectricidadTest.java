@@ -29,13 +29,13 @@ public class ServicioElectricidadTest {
     void testImporteParaRefeer() {
         when(container.esRefeer()).thenReturn(true);
         when(container.getConsumoKwHora()).thenReturn(2.0);
-        when(ordenE.diasDeServicio()).thenReturn(5.0);
+        when(ordenE.horasDeServicio()).thenReturn(120.0);
         ordenE.registrarIngreso(LocalDateTime.of(2024, 11, 5, 8, 0));
         double importe = servicioE.importePara(container, ordenE);
         assertEquals(2400.0, importe);
         verify(container).esRefeer();
         verify(container).getConsumoKwHora();
-        verify(ordenE).diasDeServicio();
+        verify(ordenE).horasDeServicio();
     }
     
     @Test
@@ -53,7 +53,7 @@ public class ServicioElectricidadTest {
         LocalDateTime fecha = LocalDateTime.of(2025, 11, 10, 8, 0);
         when(container.esRefeer()).thenReturn(true);
         when(container.getConsumoKwHora()).thenReturn(1.0);
-        when(ordenE.diasDeServicio()).thenReturn(1.0);
+        when(ordenE.horasDeServicio()).thenReturn(24.0);
         when(ordenE.getFechaDeFacturacion()).thenReturn(fecha);
         DesgloseDeServicio desglose = servicioE.obtenerDesglose(container, ordenE);
         assertEquals("ServicioElectricidad", desglose.getNombre());

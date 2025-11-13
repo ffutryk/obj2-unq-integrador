@@ -49,7 +49,7 @@ public abstract class Orden implements IReportable {
         return container;
     }
 	
-	public abstract double diasDeServicio();
+	public abstract double horasDeServicio();
 	
 	public abstract boolean esDeImportacion();
 	
