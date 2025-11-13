@@ -51,7 +51,7 @@ class BuqueTest {
 	void testUnBuqueSabeResponderSuNombre() {
 		IGPS gps = spy(IGPS.class);
 		Buque unBuque = new Buque(gps, "lorem ipsum");
-		assertEquals("lorem ipsum", unBuque.nombre());
+		assertEquals("lorem ipsum", unBuque.getNombre());
 	}
 	
 	@Test
@@ -60,7 +60,7 @@ class BuqueTest {
 		IGPS gps = spy(IGPS.class);
 		Buque unBuque = new Buque(gps, "lorem ipsum");
 		unBuque.asignarViaje(unViaje);
-		assertEquals(unViaje, unBuque.viaje());
+		assertEquals(unViaje, unBuque.getViaje());
 	}
 	
 	@Test

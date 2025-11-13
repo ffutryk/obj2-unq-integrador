@@ -33,8 +33,8 @@ class VisitanteMuelleTest {
     @Test
     void testVisitarBuqueSeteaDatosCorrectamente() {
         LocalDateTime fecha = LocalDateTime.of(2025, 5, 5, 12, 0);
-        when(buque.viaje()).thenReturn(viaje);
-        when(buque.nombre()).thenReturn("Lorem Ipsum");
+        when(buque.getViaje()).thenReturn(viaje);
+        when(buque.getNombre()).thenReturn("Lorem Ipsum");
         when(viaje.fechaDeArriboA(viaje.getGestionada())).thenReturn(fecha);
 
         visitante.visitar(buque);
@@ -48,14 +48,14 @@ class VisitanteMuelleTest {
     @Test
     void testVisitarOrdenesIncrementaContadores() {
         LocalDateTime fecha = LocalDateTime.of(2025, 10, 10, 10, 0);
-        when(buque.viaje()).thenReturn(viaje);
-        when(buque.nombre()).thenReturn("Lorem Ipsum");
+        when(buque.getViaje()).thenReturn(viaje);
+        when(buque.getNombre()).thenReturn("Lorem Ipsum");
         when(viaje.fechaDeArriboA(viaje.getGestionada())).thenReturn(fecha);
         
         visitante.visitar(buque);
         visitante.visitar(ordenImportacion);
         visitante.visitar(ordenExportacion);
-
+        
         String reporte = visitante.generarReporte();
         assertTrue(reporte.contains("Contenedores Operados: 2"));
     }
@@ -63,8 +63,8 @@ class VisitanteMuelleTest {
     @Test
     void testGenerarReporteTieneFormatoCorrecto() {
         LocalDateTime fecha = LocalDateTime.of(2025, 5, 5, 12, 0);
-        when(buque.viaje()).thenReturn(viaje);
-        when(buque.nombre()).thenReturn("Lorem Ipsum");
+        when(buque.getViaje()).thenReturn(viaje);
+        when(buque.getNombre()).thenReturn("Lorem Ipsum");
         when(viaje.fechaDeArriboA(viaje.getGestionada())).thenReturn(fecha);
 
         visitante.visitar(buque);

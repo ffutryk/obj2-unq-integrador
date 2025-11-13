@@ -18,9 +18,9 @@ public class VisitanteMuelle extends VisitanteReportable {
 
     @Override
     public void visitar(Buque buque) {
-        Viaje viaje = buque.viaje();
+        Viaje viaje = buque.getViaje();
         
-        this.nombreBuque = buque.nombre();
+        this.nombreBuque = buque.getNombre();
         this.fechaArribo = viaje.fechaDeArriboA(viaje.getGestionada());
         this.fechaPartida = viaje.fechaDeArriboA(viaje.getGestionada());
     }

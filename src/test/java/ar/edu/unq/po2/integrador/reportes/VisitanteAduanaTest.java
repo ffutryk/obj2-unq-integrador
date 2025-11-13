@@ -43,8 +43,8 @@ class VisitanteAduanaTest {
     @Test
     void testVisitarBuqueSeteaDatosCorrectamente() {
         LocalDateTime fecha = LocalDateTime.of(2025, 10, 10, 10, 0);
-        when(buque.viaje()).thenReturn(viaje);
-        when(buque.nombre()).thenReturn("Lorem Ipsum");
+        when(buque.getViaje()).thenReturn(viaje);
+        when(buque.getNombre()).thenReturn("Lorem Ipsum");
         when(viaje.fechaDeArriboA(viaje.getGestionada())).thenReturn(fecha);
 
         visitante.visitar(buque);
@@ -58,8 +58,8 @@ class VisitanteAduanaTest {
     @Test
     void testGenerarReporteSinContenedores() {
         LocalDateTime fecha = LocalDateTime.of(2025, 10, 10, 10, 0);
-        when(buque.viaje()).thenReturn(viaje);
-        when(buque.nombre()).thenReturn("Lorem Ipsum");
+        when(buque.getViaje()).thenReturn(viaje);
+        when(buque.getNombre()).thenReturn("Lorem Ipsum");
         when(viaje.fechaDeArriboA(viaje.getGestionada())).thenReturn(fecha);
 
         visitante.visitar(buque);
@@ -86,8 +86,8 @@ class VisitanteAduanaTest {
         visitante.visitar(ordenExportacion);
 
         LocalDateTime fecha = LocalDateTime.of(2025, 10, 10, 10, 0);
-        when(buque.viaje()).thenReturn(viaje);
-        when(buque.nombre()).thenReturn("Lorem Ipsum");
+        when(buque.getViaje()).thenReturn(viaje);
+        when(buque.getNombre()).thenReturn("Lorem Ipsum");
         when(viaje.fechaDeArriboA(viaje.getGestionada())).thenReturn(fecha);
         visitante.visitar(buque);
 
@@ -101,8 +101,8 @@ class VisitanteAduanaTest {
     @Test
     void testGenerarReporteIncluyeEstructuraHTML() {
         LocalDateTime fecha = LocalDateTime.of(2025, 10, 10, 10, 0);
-        when(buque.viaje()).thenReturn(viaje);
-        when(buque.nombre()).thenReturn("Lorem Ipsum");
+        when(buque.getViaje()).thenReturn(viaje);
+        when(buque.getNombre()).thenReturn("Lorem Ipsum");
         when(viaje.fechaDeArriboA(viaje.getGestionada())).thenReturn(fecha);
         
         visitante.visitar(buque);
