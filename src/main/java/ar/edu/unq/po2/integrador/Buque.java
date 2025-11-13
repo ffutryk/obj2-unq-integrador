@@ -36,11 +36,11 @@ public class Buque implements IReportable {
 		// No se pide modelar en este trabajo...
 	}
 	
-	public Viaje viaje() {
+	public Viaje getViaje() {
 		return viaje;
 	}
 
-	public String nombre() {
+	public String getNombre() {
 		return nombre;
 	}
 

@@ -10,7 +10,7 @@ import ar.edu.unq.po2.integrador.ordenes.OrdenImportacion;
 public class VisitanteBuque extends VisitanteReportable {
 	private List<String> idsImportacion = new ArrayList<>();
     private List<String> idsExportacion = new ArrayList<>();
-	
+
 	@Override
 	public void visitar(Buque buque) { }
 
