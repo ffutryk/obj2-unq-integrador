@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.integrador.Circuito;
 import ar.edu.unq.po2.integrador.Terminal;
+import ar.edu.unq.po2.integrador.Tramo;
 
 class ParadasMinimasTest {
 
@@ -30,12 +31,14 @@ class ParadasMinimasTest {
 
     @Test
     void seleccionaCircuitoConMenosParadas() {
-        when(c1.cantidadDeParadasHasta(destino)).thenReturn(4);
-        when(c2.cantidadDeParadasHasta(destino)).thenReturn(2);
-        when(c3.cantidadDeParadasHasta(destino)).thenReturn(3);
-
         ParadasMinimas estrategia = new ParadasMinimas();
-        Circuito resultado = estrategia.mejorCircuitoHacia(List.of(c1, c2, c3), destino);
+        ParadasMinimas spy = spy(estrategia);
+        
+        doReturn(4).when(spy).cantidadDeParadasPorHasta(c1, destino);
+        doReturn(2).when(spy).cantidadDeParadasPorHasta(c2, destino);
+        doReturn(3).when(spy).cantidadDeParadasPorHasta(c3, destino);
+        
+        Circuito resultado = spy.mejorCircuitoHacia(List.of(c1, c2, c3), destino);
 
         assertEquals(c2, resultado);
     }
@@ -56,5 +59,63 @@ class ParadasMinimasTest {
         ParadasMinimas estrategia = new ParadasMinimas();
         assertThrows(IllegalArgumentException.class,
                 () -> estrategia.mejorCircuitoHacia(List.of(c1, c2, c3), destino));
+    }
+
+    @Test
+    void devuelveCantidadCorrectaDeParadasHastaLaTerminal() {
+        ParadasMinimas estrategia = new ParadasMinimas();
+        Circuito circuito = mock(Circuito.class);
+        Tramo t1 = mock(Tramo.class);
+        Tramo t2 = mock(Tramo.class);
+        Tramo t3 = mock(Tramo.class);
+
+        when(circuito.tramos()).thenReturn(List.of(t1, t2, t3));
+        when(t1.contieneA(destino)).thenReturn(false);
+        when(t2.contieneA(destino)).thenReturn(true);
+        when(t3.contieneA(destino)).thenReturn(false);
+
+        int resultado = estrategia.cantidadDeParadasPorHasta(circuito, destino);
+
+        assertEquals(2, resultado);
+    }
+
+    @Test
+    void devuelveUnoSiLaTerminalEstaEnElPrimerTramo() {
+        ParadasMinimas estrategia = new ParadasMinimas();
+        Circuito circuito = mock(Circuito.class);
+        Tramo t1 = mock(Tramo.class);
+        Tramo t2 = mock(Tramo.class);
+
+        when(circuito.tramos()).thenReturn(List.of(t1, t2));
+        when(t1.contieneA(destino)).thenReturn(true);
+
+        int resultado = estrategia.cantidadDeParadasPorHasta(circuito, destino);
+
+        assertEquals(1, resultado);
+    }
+
+    @Test
+    void lanzaExcepcionSiLaTerminalNoPerteneceAlCircuito() {
+        ParadasMinimas estrategia = new ParadasMinimas();
+        Circuito circuito = mock(Circuito.class);
+        Tramo t1 = mock(Tramo.class);
+        Tramo t2 = mock(Tramo.class);
+
+        when(circuito.tramos()).thenReturn(List.of(t1, t2));
+        when(t1.contieneA(destino)).thenReturn(false);
+        when(t2.contieneA(destino)).thenReturn(false);
+
+        RuntimeException ex = assertThrows(RuntimeException.class,
+                () -> estrategia.cantidadDeParadasPorHasta(circuito, destino));
+    }
+
+    @Test
+    void lanzaExcepcionSiCircuitoNoTieneTramos() {
+        ParadasMinimas estrategia = new ParadasMinimas();
+        Circuito circuito = mock(Circuito.class);
+        when(circuito.tramos()).thenReturn(List.of());
+
+        assertThrows(RuntimeException.class,
+                () -> estrategia.cantidadDeParadasPorHasta(circuito, destino));
     }
 }

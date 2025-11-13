@@ -92,22 +92,9 @@ public class Circuito {
 	    		   .stream()
 	               .anyMatch(tramo -> tramo.contieneA(terminal)); 
 	}
-
-	public int cantidadDeParadasHasta(Terminal terminal) {
-	    int paradas = 0;
-
-	    for (Tramo tramo : tramos) {
-	        paradas++;
-	        if (tramo.contieneA(terminal)) {
-	            break;
-	        }
-	    }
-
-	    if (paradas == 0 || !tramos.stream().anyMatch(t -> t.contieneA(terminal))) {
-	        throw new RuntimeException("La terminal no pertenece al circuito");
-	    }
-
-	    return paradas;
+	
+	public List<Tramo> tramos() {
+		return tramos;
 	}
 
 	public Duration duracionHasta(Terminal destino) {

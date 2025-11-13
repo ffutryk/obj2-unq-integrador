@@ -263,18 +263,4 @@ class CircuitoTest {
 		Circuito circuito2 = new Circuito(origen, tramos);
 		assertTrue(circuito1.hashCode() == circuito2.hashCode());
 	}
-	
-	@Test
-	void testUnCircuitoPuedeResponderCuantasParadasHayHastaUnaTerminalDadaDelCircuito() {
-		Terminal origen = mock(Terminal.class);
-		Terminal terminalBuscada = mock(Terminal.class);
-		Tramo t1 = mock(Tramo.class);
-		Tramo t2 = mock(Tramo.class);
-		when(t2.contieneA(terminalBuscada)).thenReturn(true);
-		List<Tramo> tramos = new ArrayList<Tramo>();
-		tramos.add(t1);
-		tramos.add(t2);
-		unCircuito = new Circuito(origen, tramos);
-		assertEquals(2, unCircuito.cantidadDeParadasHasta(terminalBuscada));
-	}
 }
