@@ -11,9 +11,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.integrador.containers.Container;
+import ar.edu.unq.po2.integrador.containers.TipoContainer;
 import ar.edu.unq.po2.integrador.email.IEmailService;
 import ar.edu.unq.po2.integrador.fases.Viaje;
 import ar.edu.unq.po2.integrador.ordenes.Orden;
+import ar.edu.unq.po2.integrador.ordenes.OrdenExportacion;
+import ar.edu.unq.po2.integrador.ordenes.OrdenImportacion;
+import ar.edu.unq.po2.integrador.reportes.VisitanteAduana;
+import ar.edu.unq.po2.integrador.reportes.VisitanteBuque;
+import ar.edu.unq.po2.integrador.reportes.VisitanteMuelle;
+import ar.edu.unq.po2.integrador.reportes.VisitanteReportable;
 import ar.edu.unq.po2.integrador.servicios.Servicio;
 
 class TerminalGestionadaTest {
@@ -268,6 +275,66 @@ class TerminalGestionadaTest {
 		when(dateViaje1.compareTo(dateViaje2)).thenReturn(-1); // Es menor fecha...
 
 		assertEquals(dateViaje1, terminal.proximaFechaDePartidaHasta(destino));
+	}
+
+	@Test
+    void testGenerarReporteParaDelegaCorrectamenteAlVisitante() {
+        VisitanteReportable visitanteMock = mock(VisitanteReportable.class);
+        String reporteEsperado = "REPORTE_DELEGADO"; 
+
+        when(visitanteMock.generarReportePara(any(Viaje.class), anyList()))
+            .thenReturn(reporteEsperado);
+
+
+        String resultado = terminal.generarReportePara(visitanteMock, unViaje);
+
+        assertEquals(reporteEsperado, resultado);
+        verify(visitanteMock, times(1)).generarReportePara(eq(unViaje), anyList());
+    }
+	
+	@Test
+	void testGenerarReporteAduanaDelegaCorrectamente() {
+		TerminalGestionada spy = spy(terminal);
+		
+		doReturn("REPORTE_ADUANA_OK")
+			.when(spy)
+			.generarReportePara(any(VisitanteAduana.class), eq(unViaje));
+		
+		String resultado = spy.generarReporteAduanaPara(unViaje);
+
+		assertEquals("REPORTE_ADUANA_OK", resultado);
+
+		verify(spy, times(1)).generarReportePara(any(VisitanteAduana.class), eq(unViaje));
+	}
+
+	@Test
+	void testGenerarReporteMuelleDelegaCorrectamente() {
+		TerminalGestionada spy = spy(terminal);
+		
+		doReturn("REPORTE_MUELLE_OK")
+			.when(spy)
+			.generarReportePara(any(VisitanteMuelle.class), eq(unViaje));
+		
+		String resultado = spy.generarReporteMuellePara(unViaje);
+
+		assertEquals("REPORTE_MUELLE_OK", resultado);
+
+		verify(spy, times(1)).generarReportePara(any(VisitanteMuelle.class), eq(unViaje));
+	}
+	
+	@Test
+	void testGenerarReporteBuqueDelegaCorrectamente() {
+		TerminalGestionada spy = spy(terminal);
+		
+		doReturn("REPORTE_BUQUE_OK")
+			.when(spy)
+			.generarReportePara(any(VisitanteBuque.class), eq(unViaje));
+		
+		String resultado = spy.generarReporteBuquePara(unViaje);
+
+		assertEquals("REPORTE_BUQUE_OK", resultado);
+
+		verify(spy, times(1)).generarReportePara(any(VisitanteBuque.class), eq(unViaje));
 	}
 	
 	@Test

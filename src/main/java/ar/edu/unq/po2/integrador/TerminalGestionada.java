@@ -17,6 +17,10 @@ import ar.edu.unq.po2.integrador.filtros.criterios.FiltroPorDestino;
 import ar.edu.unq.po2.integrador.ordenes.Orden;
 import ar.edu.unq.po2.integrador.ordenes.OrdenExportacion;
 import ar.edu.unq.po2.integrador.ordenes.OrdenImportacion;
+import ar.edu.unq.po2.integrador.reportes.VisitanteAduana;
+import ar.edu.unq.po2.integrador.reportes.VisitanteBuque;
+import ar.edu.unq.po2.integrador.reportes.VisitanteMuelle;
+import ar.edu.unq.po2.integrador.reportes.VisitanteReportable;
 import ar.edu.unq.po2.integrador.servicios.Servicio;
 
 public class TerminalGestionada extends Terminal implements ICircuitosProveedor, IViajesProveedor{
@@ -152,6 +156,22 @@ public class TerminalGestionada extends Terminal implements ICircuitosProveedor,
 		if(!navieras.contains(unaNaviera)) {
 			throw new RuntimeException("La naviera no está registrada en la terminal...");
 		}
+	}
+	
+	protected String generarReportePara(VisitanteReportable visitante, Viaje viaje) {
+		return visitante.generarReportePara(viaje, ordenes);
+	}
+
+	public String generarReporteMuellePara(Viaje unViaje) {
+		return generarReportePara(new VisitanteMuelle(), unViaje);
+	}
+	
+	public String generarReporteAduanaPara(Viaje unViaje) {
+		return generarReportePara(new VisitanteAduana(), unViaje);
+	}
+	
+	public String generarReporteBuquePara(Viaje unViaje) {
+		return generarReportePara(new VisitanteBuque(), unViaje);
 	}
 	
 	public LocalDateTime proximaFechaDePartidaHasta(Terminal unDestino) {
