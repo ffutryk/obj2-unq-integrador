@@ -3,6 +3,8 @@ package ar.edu.unq.po2.integrador;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -215,6 +217,56 @@ class TerminalGestionadaTest {
 		when(c2.incluyeLaTerminal(terminalDestino)).thenReturn(false);
 		when(c3.incluyeLaTerminal(terminalDestino)).thenReturn(true);
 		when(c4.incluyeLaTerminal(terminalDestino)).thenReturn(false);
+		Duration duracion = mock(Duration.class);
+		when(c3.duracionHasta(terminalDestino)).thenReturn(duracion);
 		
+		assertEquals(duracion, terminal.tiempoDeViajePorA(unaNaviera, terminalDestino));
+	}
+	
+	@Test
+	void testLaTerminalNoPuedeResponderLaProximaFechaDeSalidaDeUnBuqueAUnaTerminalDestinoSiElDestinoNoFormaParteDeNingunoDeSusViajes() {
+		Terminal destino = mock(Terminal.class);
+		Naviera unaNaviera = mock(Naviera.class);
+		Naviera otraNaviera = mock(Naviera.class);
+		Viaje v1 = mock(Viaje.class);
+		Viaje v2 = mock(Viaje.class);
+		Viaje v3 = mock(Viaje.class);
+		Viaje v4 = mock(Viaje.class);
+		terminal.registrarNaviera(unaNaviera);
+		terminal.registrarNaviera(otraNaviera);
+		when(unaNaviera.getViajes()).thenReturn(Arrays.asList(v1, v2, v3));
+		when(otraNaviera.getViajes()).thenReturn(Arrays.asList(v4));
+		when(v1.pasaPorLaTerminal(destino)).thenReturn(false);
+		when(v2.pasaPorLaTerminal(destino)).thenReturn(false);
+		when(v3.pasaPorLaTerminal(destino)).thenReturn(false);
+		when(v4.pasaPorLaTerminal(destino)).thenReturn(false);
+		
+		assertThrows(RuntimeException.class, () -> terminal.proximaFechaDePartidaHasta(destino));
+	}
+	
+	@Test
+	void testLaTerminalSabeResponderCuandoEsLaProximaFechaDeSalidaDeUnBuqueHaciaUnaTerminalDestino() {
+		Terminal destino = mock(Terminal.class);
+		Naviera unaNaviera = mock(Naviera.class);
+		Naviera otraNaviera = mock(Naviera.class);
+		Viaje v1 = mock(Viaje.class);
+		Viaje v2 = mock(Viaje.class);
+		Viaje v3 = mock(Viaje.class);
+		Viaje v4 = mock(Viaje.class);
+		terminal.registrarNaviera(unaNaviera);
+		terminal.registrarNaviera(otraNaviera);
+		when(unaNaviera.getViajes()).thenReturn(Arrays.asList(v1, v2, v3));
+		when(otraNaviera.getViajes()).thenReturn(Arrays.asList(v4));
+		LocalDateTime dateViaje1 = mock(LocalDateTime.class);
+		LocalDateTime dateViaje2 = mock(LocalDateTime.class);
+		when(v1.pasaPorLaTerminal(destino)).thenReturn(true);
+		when(v2.pasaPorLaTerminal(destino)).thenReturn(false);
+		when(v3.pasaPorLaTerminal(destino)).thenReturn(true);
+		when(v4.pasaPorLaTerminal(destino)).thenReturn(false);
+		when(v1.fechaDeArriboA(terminal)).thenReturn(dateViaje1);
+		when(v3.fechaDeArriboA(terminal)).thenReturn(dateViaje2);
+		when(dateViaje1.compareTo(dateViaje2)).thenReturn(-1); // Es menor fecha...
+
+		assertEquals(dateViaje1, terminal.proximaFechaDePartidaHasta(destino));
 	}
 }
